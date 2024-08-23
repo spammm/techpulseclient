@@ -15,6 +15,7 @@ jobs:
 
       - name: Setup Node.js environment
         run: |
+          source ~/.nvm/nvm.sh
           nvm use v18.20.4
           node -v
 
