@@ -1,0 +1,62 @@
+.popularNews {
+  margin: 56px 32px;
+}
+
+.popularWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+
+  @media (max-width: 1020px) {
+    flex-direction: column-reverse;
+  }
+}
+
+.imageContainer {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.content {
+  flex: 1;
+
+  .title {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+
+  .newsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .newsItem {
+      margin-bottom: 1.5rem;
+
+      .newsLink {
+        text-decoration: none;
+        color: inherit;
+
+        .newsTitle {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+
+        .newsDescription {
+          font-size: 1rem;
+          color: var(--gray-light-color);
+        }
+      }
+    }
+  }
+}

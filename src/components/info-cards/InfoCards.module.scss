@@ -1,0 +1,16 @@
+.infoCards {
+  background-color: var(--whiteblock-background);
+  color: var(--whiteblock-text-color);
+  padding: 56px 32px;
+  a {
+    color: var(--whiteblock-text-color);
+  }
+  .infoCardsList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 4rem;
+    @media screen and (max-width: 1024px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+.cardLink {
+  display: grid;
+  grid-template-columns: 224px 1fr;
+  text-decoration: none;
+  color: inherit;
+  @media screen and (max-width: 640px) {
+    grid-template-columns: 1fr;
+    .imageContainer {
+      height: 176px;
+      margin-bottom: 16px;
+      .cardImage {
+        margin-top: -50%;
+        top: 88px;
+        position: absolute;
+      }
+    }
+  }
+
+  .imageContainer {
+    overflow: hidden;
+    border-radius: 12px;
+    position: relative;
+
+    .cardImage {
+      transition: transform 0.3s ease;
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+
+  &:hover .cardImage,
+  &:focus-within .cardImage {
+    transform: scale(1.05);
+  }
+
+  .cardContent {
+    margin-left: 24px;
+
+    .cardTitle {
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    .cardDescription {
+      margin-top: 12px;
+      color: var(--gray-color);
+    }
+  }
+}

@@ -1,0 +1,31 @@
+.footer {
+  background-color: var(--whiteblock-background);
+  color: var(--whiteblock-text-color);
+  padding: 1rem 2rem;
+  text-align: center;
+
+  &__content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__socials {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  &__socialLink {
+    color: var(--whiteblock-text-color);
+    text-decoration: none;
+    transition: color 0.3s;
+
+    &:hover,
+    &:focus {
+      color: var(--secondary-background-color-hover);
+      outline: 2px solid var(--secondary-background-color-hover);
+      outline-offset: 2px;
+    }
+  }
+}

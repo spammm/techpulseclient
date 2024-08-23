@@ -1,0 +1,73 @@
+.aboutPage {
+  background-color: #f4f4f9;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  padding: 40px 20px;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    h1 {
+      font-size: 36px;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+      h2 {
+        font-size: 28px;
+        color: #34495e;
+        margin-bottom: 15px;
+        font-weight: 500;
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #555;
+      }
+
+      ul {
+        list-style-type: disc;
+        margin-left: 20px;
+
+        li {
+          margin-bottom: 10px;
+          font-size: 18px;
+          line-height: 1.5;
+        }
+      }
+
+      a {
+        font-weight: bold;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .contact {
+    text-align: center;
+  }
+}
