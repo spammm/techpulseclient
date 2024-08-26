@@ -50,7 +50,7 @@ export const Header: React.FC = () => {
             Новости
           </Link>
           <Link href="/about" className={styles.header__link} role="menuitem">
-            О нас
+            О проекте
           </Link>
         </div>
       </nav>
