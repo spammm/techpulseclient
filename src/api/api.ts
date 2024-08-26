@@ -27,7 +27,7 @@ api.interceptors.response.use(
         const newToken = await refreshAccessToken();
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
         return api(originalRequest);
-      } catch (refreshError) {
+      } catch {
         logoutUser();
         //window.location.href = '/login';
       }

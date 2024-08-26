@@ -6,7 +6,7 @@ import { GetServerSideProps } from 'next';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { getAdjacentPosts, getPostByUrl } from '@/api/postsApi';
 import { IPost } from '@/types/post';
-import { PostNavigation } from '@/components/post-navigatrion';
+// import { PostNavigation } from '@/components/post-navigatrion';
 import { Tag } from '@/components/shared/Tag';
 import styles from './Post.module.scss';
 import { Source } from '@/components/post-sources';
@@ -33,18 +33,18 @@ const Post: React.FC<PostProps> = ({ post }) => {
   const router = useRouter();
   const { url } = router.query;
 
-  const [prevPostUrl, setPrevPostUrl] = useState<string | undefined>();
-  const [nextPostUrl, setNextPostUrl] = useState<string | undefined>();
+  // const [prevPostUrl, setPrevPostUrl] = useState<string | undefined>();
+  // const [nextPostUrl, setNextPostUrl] = useState<string | undefined>();
 
-  useEffect(() => {
-    const fetchAdjacentPosts = async () => {
-      const { prevPostUrl, nextPostUrl } = await getAdjacentPosts(id);
-      setPrevPostUrl(prevPostUrl);
-      setNextPostUrl(nextPostUrl);
-    };
+  // useEffect(() => {
+  //   const fetchAdjacentPosts = async () => {
+  //     const { prevPostUrl, nextPostUrl } = await getAdjacentPosts(id);
+  //     setPrevPostUrl(prevPostUrl);
+  //     setNextPostUrl(nextPostUrl);
+  //   };
 
-    fetchAdjacentPosts();
-  }, [id]);
+  //   fetchAdjacentPosts();
+  // }, [id]);
 
   return (
     <>
@@ -102,7 +102,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
               <Source key={source.name} source={source} />
             ))}
           </div>
-          <PostNavigation prevPostUrl={prevPostUrl} nextPostUrl={nextPostUrl} />
+          {/* <PostNavigation prevPostUrl={prevPostUrl} nextPostUrl={nextPostUrl} /> */}
         </footer>
       </article>
     </>

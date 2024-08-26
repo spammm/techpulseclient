@@ -3,10 +3,11 @@ import api from './api';
 
 export const getPublishedPosts = async (
   page: number = 1,
-  tags: string[] = []
+  tags: string[] = [],
+  limit: number = 10
 ): Promise<{ posts: IPost[]; totalPages: number }> => {
   const response = await api.get('/posts/published', {
-    params: { page, tags },
+    params: { page, tags, limit },
   });
   return response.data;
 };
