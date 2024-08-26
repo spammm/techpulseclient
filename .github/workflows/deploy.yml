@@ -19,6 +19,17 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Stop Apache on VDS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VDS_SSH_KEY }}
+          SERVER_HOST: ${{ secrets.VDS_HOST }}
+          SERVER_USER: ${{ secrets.VDS_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST "sudo systemctl stop apache2"
+
       - name: Deploy to VDS
         env:
           SSH_PRIVATE_KEY: ${{ secrets.VDS_SSH_KEY }}
@@ -30,4 +41,15 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST "mkdir -p /var/www/techpulseclient"
           rsync -avz --exclude='.git' --exclude='node_modules' --exclude='.github' . $SERVER_USER@$SERVER_HOST:/var/www/techpulseclient
-          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST "cd /var/www/techpulseclient && npm install && npm run start"
+          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST "cd /var/www/techpulseclient && npm install && pm2 restart techpulseclient"
+
+      - name: Start Apache on VDS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VDS_SSH_KEY }}
+          SERVER_HOST: ${{ secrets.VDS_HOST }}
+          SERVER_USER: ${{ secrets.VDS_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST "sudo systemctl start apache2"
