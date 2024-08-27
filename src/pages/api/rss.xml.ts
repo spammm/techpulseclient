@@ -19,6 +19,12 @@ const RSS = (posts: any[]) => `<?xml version="1.0" encoding="UTF-8" ?>
       }]]></description>
       <pubDate>${new Date(post.publishedAt).toUTCString()}</pubDate>
       <guid>${process.env.NEXT_PUBLIC_SITE_URL}/posts/${post.url}</guid>
+      <turbo:content><![CDATA[
+        <header>
+          <h1>${post.title}</h1>
+        </header>
+        ${post.content}
+      ]]></turbo:content>
     </item>
   `
     )
