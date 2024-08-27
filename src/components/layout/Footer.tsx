@@ -19,6 +19,7 @@ export const Footer: React.FC = () => {
             target="_blank"
             className={styles.footer__socialLink}
             aria-label="Telegram (открывается в новом окне)"
+            rel="noopener noreferrer"
           >
             Telegram
           </Link>
@@ -27,6 +28,7 @@ export const Footer: React.FC = () => {
             target="_blank"
             className={styles.footer__socialLink}
             aria-label="ВКонтакте (открывается в новом окне)"
+            rel="noopener noreferrer"
           >
             ВКонтакте
           </Link>

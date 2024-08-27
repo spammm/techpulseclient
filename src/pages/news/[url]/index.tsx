@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
+import Script from 'next/script';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
@@ -34,18 +35,31 @@ const Post: React.FC<PostProps> = ({ post }) => {
   const router = useRouter();
   const { url } = router.query;
 
-  // const [prevPostUrl, setPrevPostUrl] = useState<string | undefined>();
-  // const [nextPostUrl, setNextPostUrl] = useState<string | undefined>();
-
-  // useEffect(() => {
-  //   const fetchAdjacentPosts = async () => {
-  //     const { prevPostUrl, nextPostUrl } = await getAdjacentPosts(id);
-  //     setPrevPostUrl(prevPostUrl);
-  //     setNextPostUrl(nextPostUrl);
-  //   };
-
-  //   fetchAdjacentPosts();
-  // }, [id]);
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: title,
+    image: image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    author: {
+      '@type': 'Person',
+      name: authorName || 'Алина',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'TechPulse',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,
+      },
+    },
+    description: subtitle || content.substring(0, 200),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${NEXT_PUBLIC_SITE_URL}/news/${url}`,
+    },
+  };
 
   return (
     <>
@@ -68,6 +82,12 @@ const Post: React.FC<PostProps> = ({ post }) => {
           }
         />
       </Head>
+
+      <Script
+        type="application/ld+json"
+        id="structured-data"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
 
       <article className={styles.post}>
         <div className="content-container">
@@ -119,6 +139,12 @@ export default Post;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { url } = context.query;
+
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=300, stale-while-revalidate=60'
+  );
+
   try {
     const post = await getPostByUrl(url as string);
     return {

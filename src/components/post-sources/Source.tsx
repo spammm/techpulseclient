@@ -12,6 +12,7 @@ export const Source: React.FC<SourceProps> = ({ source: { name, link } }) => {
       href={link}
       title={`Ссылка на источник`}
       target="_blank"
+      rel="noopener noreferrer"
     >
       <span></span> {name}
     </Link>
