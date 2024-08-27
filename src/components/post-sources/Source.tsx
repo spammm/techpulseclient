@@ -7,7 +7,12 @@ interface SourceProps {
 
 export const Source: React.FC<SourceProps> = ({ source: { name, link } }) => {
   return (
-    <Link className={styles.source} href={link} title={name}>
+    <Link
+      className={styles.source}
+      href={link}
+      title={`Ссылка на источник`}
+      target="_blank"
+    >
       <span></span> {name}
     </Link>
   );

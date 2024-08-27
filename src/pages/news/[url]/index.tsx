@@ -11,7 +11,8 @@ import { Tag } from '@/components/shared/Tag';
 import styles from './Post.module.scss';
 import { Source } from '@/components/post-sources';
 
-const NEXT_SITE_URL = process.env.NEXT_SITE_URL || 'http://localhost:3000';
+const NEXT_PUBLIC_SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 interface PostProps {
   post: IPost;
@@ -56,10 +57,15 @@ const Post: React.FC<PostProps> = ({ post }) => {
         <meta property="og:title" content={`${title} | Tech Pulse`} />
         <meta property="og:description" content={subtitle || ''} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`${NEXT_SITE_URL}/news/${url}`} />
+        <meta
+          property="og:url"
+          content={`${NEXT_PUBLIC_SITE_URL}/news/${url}`}
+        />
         <meta
           property="og:image"
-          content={image?.src || `${NEXT_SITE_URL}/android-chrome-192x192.png`}
+          content={
+            image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`
+          }
         />
       </Head>
 

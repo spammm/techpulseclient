@@ -9,7 +9,8 @@ import { IPost } from '@/types/post';
 import { Pagination } from '@/components/pagination';
 import { Tag } from '@/components/shared/Tag';
 
-const NEXT_SITE_URL = process.env.NEXT_SITE_URL || 'http://localhost:3000';
+const NEXT_PUBLIC_SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 const NewsPage: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -47,15 +48,18 @@ const NewsPage: React.FC = () => {
   return (
     <>
       <Head>
-        <title>{pageTitle} | TechPulse</title>
+        <title>{`${pageTitle} | TechPulse`}</title>
         <meta name="description" content={pageDescription} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${NEXT_SITE_URL}${router.asPath}`} />
+        <meta
+          property="og:url"
+          content={`${NEXT_PUBLIC_SITE_URL}${router.asPath}`}
+        />
         <meta
           property="og:image"
-          content={`${NEXT_SITE_URL}/android-chrome-192x192.png`}
+          content={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
         />
         <meta property="og:site_name" content="TechPulse" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -63,7 +67,7 @@ const NewsPage: React.FC = () => {
         <meta name="twitter:description" content={pageDescription} />
         <meta
           name="twitter:image"
-          content={`${NEXT_SITE_URL}/android-chrome-192x192.png`}
+          content={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
         />
       </Head>
       <div className={styles.newsPage}>

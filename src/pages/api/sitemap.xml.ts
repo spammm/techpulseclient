@@ -17,7 +17,7 @@ async function generateSitemap(): Promise<string> {
   while (hasMore) {
     const { posts, totalPages } = await getPublishedPosts(page, [], 100);
     const postPageUrls: SitemapEntry[] = posts.map((post) => ({
-      loc: `${process.env.NEXT_SITE_URL}/news/${post.url}`,
+      loc: `${process.env.NEXT_PUBLIC_SITE_URL}/news/${post.url}`,
       lastmod: new Date(post.updatedAt).toISOString().split('T')[0],
       changefreq: 'monthly',
       priority: '0.7',
@@ -33,17 +33,17 @@ async function generateSitemap(): Promise<string> {
 
   const staticPages: SitemapEntry[] = [
     {
-      loc: `${process.env.NEXT_SITE_URL}/`,
+      loc: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
       changefreq: 'monthly',
       priority: '1.0',
     },
     {
-      loc: `${process.env.NEXT_SITE_URL}/about`,
+      loc: `${process.env.NEXT_PUBLIC_SITE_URL}/about`,
       changefreq: 'monthly',
       priority: '0.8',
     },
     {
-      loc: `${process.env.NEXT_SITE_URL}/news`,
+      loc: `${process.env.NEXT_PUBLIC_SITE_URL}/news`,
       changefreq: 'weekly',
       priority: '0.9',
     },

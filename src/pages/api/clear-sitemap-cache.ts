@@ -4,7 +4,7 @@ import cache from 'memory-cache';
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const secret = req.headers['x-sitemap-secret'];
 
-  if (!secret || secret !== process.env.NEXT_SITEMAP_SECRET) {
+  if (!secret || secret !== process.env.NEXT_PUBLIC_SITEMAP_SECRETT) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 

@@ -1,6 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
-const NEXT_SITE_URL = process.env.NEXT_SITE_URL || 'http://localhost:3000';
+const NEXT_PUBLIC_SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export default function Document() {
   return (
@@ -17,10 +18,10 @@ export default function Document() {
           content="Ваш источник последних технических новостей и будущих разработок"
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${NEXT_SITE_URL}`} />
+        <meta property="og:url" content={`${NEXT_PUBLIC_SITE_URL}`} />
         <meta
           property="og:image"
-          content={`${NEXT_SITE_URL}/android-chrome-192x192.png`}
+          content={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
         />
         <meta property="og:site_name" content="TechPulse" />
         <meta property="og:locale" content="ru_RU" />
@@ -33,7 +34,7 @@ export default function Document() {
         />
         <meta
           name="twitter:image"
-          content={`${NEXT_SITE_URL}/android-chrome-192x192.png`}
+          content={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
         />
         <meta name="twitter:site" content="@TechPulse" />
         <meta name="twitter:creator" content="@TechPulse" />
