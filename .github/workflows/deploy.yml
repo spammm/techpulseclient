@@ -19,8 +19,8 @@ jobs:
       - name: Build project
         env:
           NEXT_PUBLIC_API_SERVER: ${{ vars.NEXT_PUBLIC_API_SERVER }}
-          NEXT_SITE_URL: ${{ vars.NEXT_SITE_URL }}
-          NEXT_SITEMAP_SECRET: ${{ vars.NEXT_SITEMAP_SECRET }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+          NEXT_PUBLIC_SITEMAP_SECRET: ${{ vars.NEXT_PUBLIC_SITEMAP_SECRET }}
         run: npm run build
 
       - name: Stop Apache on VDS
