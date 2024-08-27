@@ -20,6 +20,12 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="RSS"
+          href="/rss.xml"
+        />
         <meta
           name="yandex-verification"
           content={`${process.env.NEXT_PUBLIC_YANDEX_VERIFICATION}`}
@@ -53,6 +59,7 @@ export default function App({ Component, pageProps }: AppProps) {
         {yandexMetrikaId && (
           <noscript>
             <div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={`https://mc.yandex.ru/watch/${yandexMetrikaId}`}
                 style={{ position: 'absolute', left: '-9999px' }}
