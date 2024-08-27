@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getPublishedPosts } from '@/api/postsApi';
 
 const RSS = (posts: any[]) => `<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
+<rss version="2.0" xmlns:turbo="http://turbo.yandex.ru">
 <channel>
   <title>TechPulse</title>
   <link>${process.env.NEXT_PUBLIC_SITE_URL}</link>
