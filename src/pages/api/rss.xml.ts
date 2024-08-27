@@ -11,7 +11,7 @@ const RSS = (posts: any[]) => `<?xml version="1.0" encoding="UTF-8" ?>
   ${posts
     .map(
       (post) => `
-    <item>
+    <item turbo="true">
       <title><![CDATA[${post.title}]]></title>
       <link>${process.env.NEXT_PUBLIC_SITE_URL}/posts/${post.url}</link>
       <description><![CDATA[${
