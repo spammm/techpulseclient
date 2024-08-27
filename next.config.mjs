@@ -20,6 +20,32 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/news/:slug*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.tehpulse.ru',
+          },
+        ],
+        destination: 'https://tehpulse.ru/news/:slug*',
+        permanent: true,
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'www.tehpulse.ru',
+          },
+        ],
+        destination: 'https://tehpulse.ru/',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
