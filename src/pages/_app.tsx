@@ -14,6 +14,7 @@ const montserrat = Montserrat({
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`;
+  const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
 
   return (
     <>
@@ -28,6 +29,38 @@ export default function App({ Component, pageProps }: AppProps) {
           content={`${process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION}`}
         />
         <link rel="canonical" href={canonicalUrl} />
+
+        {yandexMetrikaId && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+                m[i].l=1*new Date();
+                for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+                k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+                (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+                ym(${yandexMetrikaId}, "init", {
+                      clickmap:true,
+                      trackLinks:true,
+                      accurateTrackBounce:true,
+                      webvisor:true
+                });
+              `,
+            }}
+          />
+        )}
+        {yandexMetrikaId && (
+          <noscript>
+            <div>
+              <img
+                src={`https://mc.yandex.ru/watch/${yandexMetrikaId}`}
+                style={{ position: 'absolute', left: '-9999px' }}
+                alt=""
+              />
+            </div>
+          </noscript>
+        )}
       </Head>
       <Layout className={montserrat.className}>
         <Component {...pageProps} />
