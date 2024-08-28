@@ -39,7 +39,7 @@ export default function Document() {
         <meta name="twitter:site" content="@TechPulse" />
         <meta name="twitter:creator" content="@TechPulse" />
 
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="manifest" href={`${NEXT_PUBLIC_SITE_URL}/manifest.json`} />
         <link
           rel="icon"
           href={`${NEXT_PUBLIC_SITE_URL}/favicon.ico`}
@@ -49,16 +49,19 @@ export default function Document() {
         <link
           rel="icon"
           type="image/png"
-          href="/favicon-32x32.png"
+          href={`${NEXT_PUBLIC_SITE_URL}/favicon-32x32.png`}
           sizes="32x32"
         />
         <link
           rel="icon"
           type="image/png"
-          href="/favicon-16x16.png"
+          href={`${NEXT_PUBLIC_SITE_URL}/favicon-16x16.png`}
           sizes="16x16"
         />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link
+          rel="apple-touch-icon"
+          href={`${NEXT_PUBLIC_SITE_URL}/apple-touch-icon.png`}
+        />
 
         <meta name="robots" content="index, follow" />
         <meta

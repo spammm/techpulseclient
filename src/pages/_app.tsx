@@ -7,6 +7,7 @@ import '@/styles/globals.css';
 import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 const CookieConsent = React.lazy(() => import('../components/сookie-сonsent'));
 
@@ -21,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
     process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
   const canonicalUrl = `${NEXT_PUBLIC_SITE_URL}${router.asPath}`;
   const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
+  const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG;
 
   return (
     <>
@@ -42,6 +44,8 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         <link rel="canonical" href={canonicalUrl} />
       </Head>
+
+      {googleTagId && <GoogleTagManager gtmId="GTM-MGKMW7G2" />}
 
       {yandexMetrikaId && (
         <Script
