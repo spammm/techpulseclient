@@ -56,11 +56,11 @@ export default function App({ Component, pageProps }: AppProps) {
               ym(${yandexMetrikaId}, "init", {
                 clickmap:true,
                 trackLinks:true,
-                accurateTrackBounce:true,
-                webvisor:true
+                accurateTrackBounce:true
               });
             `,
           }}
+          async
         />
       )}
 
