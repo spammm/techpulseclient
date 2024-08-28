@@ -16,6 +16,15 @@
     }
   }
 
+  &.white {
+    color: var(--whiteblock-text-color);
+    background-color: var(--whiteblock-background);
+    box-shadow: 0px 0px 3px rgba(#000000, 0.3);
+    &:hover {
+      background-color: rgba(#d3cfcf, 0.9);
+    }
+  }
+
   &.menu {
     display: flex;
     justify-content: center;

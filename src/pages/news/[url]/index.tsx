@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import { getAdjacentPosts, getPostByUrl } from '@/api/postsApi';
+import { getPostByUrl } from '@/api/postsApi';
 import { IPost } from '@/types/post';
-// import { PostNavigation } from '@/components/post-navigatrion';
 import { Tag } from '@/components/shared/Tag';
-import styles from './Post.module.scss';
 import { Source } from '@/components/post-sources';
+import styles from './Post.module.scss';
 
 const NEXT_PUBLIC_SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
@@ -21,7 +19,6 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ post }) => {
   const {
-    id,
     title,
     subtitle,
     image,
@@ -128,7 +125,6 @@ const Post: React.FC<PostProps> = ({ post }) => {
               <Source key={source.name} source={source} />
             ))}
           </div>
-          {/* <PostNavigation prevPostUrl={prevPostUrl} nextPostUrl={nextPostUrl} /> */}
         </footer>
       </article>
     </>

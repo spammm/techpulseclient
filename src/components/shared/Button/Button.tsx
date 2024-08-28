@@ -4,7 +4,7 @@ import MenuIcon from './menu-icon.svg';
 import styles from './Button.module.scss';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'menu';
+  variant?: 'primary' | 'menu' | 'white';
 }
 
 export const Button: React.FC<ButtonProps> = ({
