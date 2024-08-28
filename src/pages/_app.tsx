@@ -45,7 +45,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="canonical" href={canonicalUrl} />
       </Head>
 
-      {googleTagId && <GoogleTagManager gtmId="GTM-MGKMW7G2" />}
+      {googleTagId && <GoogleTagManager gtmId={googleTagId} />}
 
       {yandexMetrikaId && (
         <Script
