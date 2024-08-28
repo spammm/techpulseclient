@@ -1,3 +1,4 @@
+import React, { Suspense } from 'react';
 import type { AppProps } from 'next/app';
 import { Montserrat } from 'next/font/google';
 import { Layout } from '@/components/layout';
@@ -6,6 +7,8 @@ import '@/styles/globals.css';
 import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
+
+const CookieConsent = React.lazy(() => import('../components/сookie-сonsent'));
 
 const montserrat = Montserrat({
   subsets: ['latin', 'cyrillic'],
@@ -76,6 +79,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <Layout className={montserrat.className}>
         <Component {...pageProps} />
+        <Suspense fallback={null}>
+          <CookieConsent />
+        </Suspense>
       </Layout>
     </>
   );
