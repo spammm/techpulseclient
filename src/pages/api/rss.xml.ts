@@ -13,12 +13,12 @@ const RSS = (posts: any[]) => `<?xml version="1.0" encoding="UTF-8" ?>
       (post) => `
     <item turbo="true">
       <title><![CDATA[${post.title}]]></title>
-      <link>${process.env.NEXT_PUBLIC_SITE_URL}/posts/${post.url}</link>
+      <link>${process.env.NEXT_PUBLIC_SITE_URL}/news/${post.url}</link>
       <description><![CDATA[${
         post.description || post.content.substring(0, 200)
       }]]></description>
       <pubDate>${new Date(post.publishedAt).toUTCString()}</pubDate>
-      <guid>${process.env.NEXT_PUBLIC_SITE_URL}/posts/${post.url}</guid>
+      <guid>${process.env.NEXT_PUBLIC_SITE_URL}/news/${post.url}</guid>
       <turbo:content><![CDATA[
         <header>
           <h1>${post.title}</h1>
