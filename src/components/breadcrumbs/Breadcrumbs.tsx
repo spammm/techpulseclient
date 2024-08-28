@@ -16,7 +16,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ lastText }) => {
         <li>
           <Link href="/news">Новости</Link>
         </li>
-        <li>
+        <li className={styles.lastText}>
           <span>{lastText}</span>
         </li>
       </ul>

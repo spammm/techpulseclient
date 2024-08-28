@@ -40,7 +40,12 @@ export default function Document() {
         <meta name="twitter:creator" content="@TechPulse" />
 
         <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link
+          rel="icon"
+          href={`${NEXT_PUBLIC_SITE_URL}/favicon.ico`}
+          type="image/x-icon"
+          sizes="any"
+        />
         <link
           rel="icon"
           type="image/png"

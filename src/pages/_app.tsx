@@ -17,7 +17,9 @@ const montserrat = Montserrat({
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`;
+  const NEXT_PUBLIC_SITE_URL =
+    process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const canonicalUrl = `${NEXT_PUBLIC_SITE_URL}${router.asPath}`;
   const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
 
   return (
@@ -28,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
           rel="alternate"
           type="application/rss+xml"
           title="RSS"
-          href="/rss.xml"
+          href={`${NEXT_PUBLIC_SITE_URL}/rss.xml`}
         />
         <meta
           name="yandex-verification"

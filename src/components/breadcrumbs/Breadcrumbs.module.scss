@@ -29,9 +29,21 @@
   span {
     color: var(--gray-color);
   }
+
   @media screen and (max-width: 400px) {
+    padding: 0.5em;
     ul {
       flex-direction: column;
+      margin: 0;
+      gap: 0.4em;
+      li {
+        &:after {
+          content: none;
+        }
+      }
+      .lastText {
+        display: none;
+      }
     }
   }
 }
