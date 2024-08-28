@@ -64,7 +64,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
   return (
     <>
       <Head>
-        <title>{title} | Tech Pulse</title>
+        <title>{`${title} | Tech Pulse`}</title>
         <meta name="description" content={subtitle || ''} />
         <meta name="keywords" content={keywords || ''} />
         {authorName && <meta name="author" content={authorName} />}

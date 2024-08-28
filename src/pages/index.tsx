@@ -2,8 +2,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Hero } from '@/components/hero';
 import { Button } from '@/components/shared/Button';
-import { InfoCards } from '@/components/info-cards';
-import { Popular } from '@/components/popular';
+// import { InfoCards } from '@/components/info-cards';
+// import { Popular } from '@/components/popular';
+import { LastNews } from '@/components/last-news/LastNews';
 
 export default function Home() {
   const ButtonGotoNews = (
@@ -23,8 +24,9 @@ export default function Home() {
         text="Ваш источник последних технических новостей и будущих разработок"
         button={ButtonGotoNews}
       />
-      <InfoCards />
-      <Popular />
+      {/* <InfoCards />
+      <Popular /> */}
+      <LastNews />
     </>
   );
 }
