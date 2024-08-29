@@ -49,6 +49,24 @@ export default function Document() {
         <link
           rel="icon"
           type="image/png"
+          href={`${NEXT_PUBLIC_SITE_URL}/favicon-192x192.png`}
+          sizes="192x192"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href={`${NEXT_PUBLIC_SITE_URL}/apple-touch-icon.png`}
+          sizes="180x180"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          href={`${NEXT_PUBLIC_SITE_URL}/favicon-120x120.png`}
+          sizes="120x120"
+        />
+        <link
+          rel="icon"
+          type="image/png"
           href={`${NEXT_PUBLIC_SITE_URL}/favicon-32x32.png`}
           sizes="32x32"
         />
