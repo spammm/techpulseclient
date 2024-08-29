@@ -1,13 +1,14 @@
 import React, { Suspense } from 'react';
 import type { AppProps } from 'next/app';
-import { Montserrat } from 'next/font/google';
-import { Layout } from '@/components/layout';
-import '@/styles/reset.css';
-import '@/styles/globals.css';
 import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
+import { Montserrat } from 'next/font/google';
+import { Layout } from '@/components/layout';
 import { GoogleTagManager } from '@next/third-parties/google';
+
+import '@/styles/reset.css';
+import '@/styles/globals.css';
 
 const CookieConsent = React.lazy(() => import('../components/сookie-сonsent'));
 

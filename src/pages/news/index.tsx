@@ -1,13 +1,13 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import styles from '../../styles/NewsPage.module.scss';
 import { NewsList } from '@/components/news';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { getPublishedPosts } from '../../api/postsApi';
 import { IPost } from '@/types/post';
 import { Pagination } from '@/components/pagination';
 import { Tag } from '@/components/shared/Tag';
+import styles from '../../styles/NewsPage.module.scss';
 
 const NEXT_PUBLIC_SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';

@@ -19,7 +19,6 @@ export const getPopularPosts = async (): Promise<IPost[]> => {
 
 export const getPostByUrl = async (url: string): Promise<IPost> => {
   const response = await api.get(`/posts/url/${url}`);
-  //const response = await api.get(`/posts/find?fieldName=url&fieldValue=${url}`);
   return response.data;
 };
 
