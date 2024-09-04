@@ -3,6 +3,8 @@ import Script from 'next/script';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
+
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { getPostByUrl } from '@/api/postsApi';
 import { IPost } from '@/types/post';
@@ -10,6 +12,11 @@ import { Tag } from '@/components/shared/Tag';
 import { Source } from '@/components/post-sources';
 import styles from './Post.module.scss';
 import YandexAdBlock from '@/components/reklama/YandexAdBlock';
+
+const LastNews = dynamic(() => import('@/components/last-news'), {
+  loading: () => <p>Загрузка последних новостей...</p>,
+  ssr: false, // Указывает, что компонент должен рендериться только на клиенте
+});
 
 const NEXT_PUBLIC_SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
@@ -129,6 +136,10 @@ const Post: React.FC<PostProps> = ({ post }) => {
               <Source key={source.name} source={source} />
             ))}
           </div>
+          <section className="content-container">
+            <h3>Смотрите также последние новости с главной страницы</h3>
+            <LastNews />
+          </section>
         </footer>
       </article>
     </>

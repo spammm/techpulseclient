@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Hero } from '@/components/hero';
 import { Button } from '@/components/shared/Button';
-import { LastNews } from '@/components/last-news/LastNews';
+import { LastNews } from '@/components/last-news';
 import YandexAdBlock from '@/components/reklama/YandexAdBlock';
 
 export default function Home() {

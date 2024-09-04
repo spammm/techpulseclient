@@ -23,3 +23,5 @@ export const LastNews: React.FC = () => {
     </section>
   );
 };
+
+export default LastNews;
