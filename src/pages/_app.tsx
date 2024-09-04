@@ -9,6 +9,7 @@ import { GoogleTagManager } from '@next/third-parties/google';
 
 import '@/styles/reset.css';
 import '@/styles/globals.css';
+import YandexRTB from '@/components/reklama/YandexRTB';
 
 const CookieConsent = React.lazy(() => import('../components/сookie-сonsent'));
 
@@ -86,6 +87,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <Layout className={montserrat.className}>
         <Component {...pageProps} />
+        <YandexRTB />
         <Suspense fallback={null}>
           <CookieConsent />
         </Suspense>

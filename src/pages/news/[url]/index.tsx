@@ -9,9 +9,12 @@ import { IPost } from '@/types/post';
 import { Tag } from '@/components/shared/Tag';
 import { Source } from '@/components/post-sources';
 import styles from './Post.module.scss';
+import YandexAdBlock from '@/components/reklama/YandexAdBlock';
 
 const NEXT_PUBLIC_SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+
+const blockId = process.env.NEXT_PUBLIC_YANDEX_BLOCK_ID3 || '';
 
 interface PostProps {
   post: IPost;
@@ -107,6 +110,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
           <div className={styles.postContentWrapper}>
             <div dangerouslySetInnerHTML={{ __html: content }} />
           </div>
+          <YandexAdBlock blockId={blockId} />
         </section>
 
         <footer className={clsx(styles.postFooter, 'content-container')}>

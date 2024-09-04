@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Hero } from '@/components/hero';
 import { Button } from '@/components/shared/Button';
 import { LastNews } from '@/components/last-news/LastNews';
+import YandexAdBlock from '@/components/reklama/YandexAdBlock';
 
 export default function Home() {
   const ButtonGotoNews = (
@@ -10,6 +11,7 @@ export default function Home() {
       <Button variant="white">Перейти к новостям</Button>
     </Link>
   );
+  const blockId = process.env.NEXT_PUBLIC_YANDEX_BLOCK_ID1 || '';
 
   return (
     <>
@@ -22,6 +24,7 @@ export default function Home() {
         text="Ваш источник последних технических новостей и будущих разработок"
         button={ButtonGotoNews}
       />
+      <YandexAdBlock blockId={blockId} />
       <LastNews />
     </>
   );
