@@ -75,6 +75,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         <meta name="description" content={subtitle || ''} />
         <meta name="keywords" content={keywords || ''} />
         {authorName && <meta name="author" content={authorName} />}
+
         <meta property="og:title" content={`${title} | Tech Pulse`} />
         <meta property="og:description" content={subtitle || ''} />
         <meta property="og:type" content="article" />
@@ -88,6 +89,18 @@ const Post: React.FC<PostProps> = ({ post }) => {
             image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`
           }
         />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${title} | Tech Pulse`} />
+        <meta name="twitter:description" content={subtitle || ''} />
+        <meta
+          name="twitter:image"
+          content={
+            image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`
+          }
+        />
+        <meta name="twitter:site" content="@TechPulse" />
+        <meta name="twitter:creator" content="@TechPulse" />
       </Head>
 
       <Script
