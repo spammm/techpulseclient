@@ -24,7 +24,10 @@ export default function Home() {
           name="description"
           content="Ваш источник последних технических новостей и будущих разработок"
         />
-
+        <meta
+          name="keywords"
+          content="технологии, новости, разработки, гаджеты, IT"
+        />
         <meta property="og:title" content="TechPulse - Новости технологий" />
         <meta
           property="og:description"
