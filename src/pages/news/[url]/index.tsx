@@ -6,12 +6,13 @@ import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import { getPostByUrl } from '@/api/postsApi';
+import { getPostByUrl, incrementViewCount } from '@/api/postsApi';
 import { IPost } from '@/types/post';
 import { Tag } from '@/components/shared/Tag';
 import { Source } from '@/components/post-sources';
 import styles from './Post.module.scss';
 import YandexAdBlock from '@/components/reklama/YandexAdBlock';
+import { useEffect } from 'react';
 
 const LastNews = dynamic(() => import('@/components/last-news'), {
   loading: () => <p>Загрузка последних новостей...</p>,
@@ -29,6 +30,7 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ post }) => {
   const {
+    id,
     title,
     subtitle,
     image,
@@ -41,6 +43,12 @@ const Post: React.FC<PostProps> = ({ post }) => {
   } = post;
   const router = useRouter();
   const { url } = router.query;
+
+  useEffect(() => {
+    if (id && typeof window !== 'undefined') {
+      incrementViewCount(id);
+    }
+  }, [id]);
 
   const structuredData = {
     '@context': 'https://schema.org',

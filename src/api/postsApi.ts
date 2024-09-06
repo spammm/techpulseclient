@@ -4,8 +4,8 @@ import api from './api';
 export const getPublishedPosts = async (
   page: number = 1,
   tags: string[] = [],
-  search: string = '',
-  limit: number = 10
+  limit: number = 10,
+  search: string = ''
 ): Promise<{ posts: IPost[]; totalPages: number }> => {
   const response = await api.get('/posts/published', {
     params: { page, tags, limit, search },

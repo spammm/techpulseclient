@@ -29,6 +29,7 @@ const SearchPage: React.FC = () => {
       const { posts, totalPages } = await getPublishedPosts(
         page,
         [],
+        10,
         searchTerm
       );
       setPosts(posts);
