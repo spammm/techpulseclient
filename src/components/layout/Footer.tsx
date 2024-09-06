@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
         </p>
         <div className={styles.footer__socials}>
           <Link
-            href="https://t.me/techpulse"
+            href="https://t.me/tekhulse"
             target="_blank"
             className={styles.footer__socialLink}
             aria-label="Telegram (открывается в новом окне)"

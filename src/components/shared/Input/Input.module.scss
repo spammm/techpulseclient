@@ -1,0 +1,42 @@
+.input {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: #0070f3;
+  }
+}
+
+.primary {
+  border: 1px solid #0070f3;
+  background-color: #fff;
+  color: #000;
+
+  &:focus {
+    border-color: #005bb5;
+  }
+}
+
+.search {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: #000;
+
+  &:focus {
+    border-color: #aaa;
+  }
+}
+
+.white {
+  border: 1px solid #eaeaea;
+  background-color: #fff;
+  color: #000;
+
+  &:focus {
+    border-color: #ddd;
+  }
+}

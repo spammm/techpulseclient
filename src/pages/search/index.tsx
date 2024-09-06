@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { NewsList } from '@/components/news';
@@ -6,44 +6,45 @@ import { Breadcrumbs } from '@/components/breadcrumbs';
 import { getPublishedPosts } from '../../api/postsApi';
 import { IPost } from '@/types/post';
 import { Pagination } from '@/components/pagination';
-import { Tag } from '@/components/shared/Tag';
+import { SearchBar } from '@/components/SearchBar';
 import styles from '../../styles/NewsPage.module.scss';
 
 const NEXT_PUBLIC_SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-const NewsPage: React.FC = () => {
+const SearchPage: React.FC = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const router = useRouter();
-  const { tags } = router.query;
 
-  const tagsArray = useMemo(() => {
-    if (typeof tags === 'string') {
-      return tags.split(',').map((tag) => tag.trim());
-    } else if (Array.isArray(tags)) {
-      return tags;
-    }
-    return [];
-  }, [tags]);
+  const handleSearch = (query: string) => {
+    setPage(1);
+    setSearchTerm(query);
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const { posts, totalPages } = await getPublishedPosts(page, tagsArray);
+      const { posts, totalPages } = await getPublishedPosts(
+        page,
+        [],
+        searchTerm
+      );
       setPosts(posts);
       setTotalPages(totalPages);
     };
 
-    fetchPosts();
-  }, [page, tagsArray]);
+    if (searchTerm) {
+      fetchPosts();
+    }
+  }, [page, searchTerm]);
 
-  const pageTitle =
-    tagsArray.length > 0
-      ? `Новости по тегу: ${tagsArray.join(', ')}`
-      : 'Все новости';
+  const pageTitle = searchTerm
+    ? `Результаты поиска: ${searchTerm}`
+    : 'Поиск статей';
   const pageDescription =
-    'Читать последние технические новости и статьи на TechPulse. Оставайтесь в курсе последних событий в мире технологий.';
+    'Поиск последних технических новостей и статей на TechPulse. Найдите статьи по интересующим вас темам.';
 
   return (
     <>
@@ -52,7 +53,7 @@ const NewsPage: React.FC = () => {
         <meta name="description" content={pageDescription} />
         <meta
           name="keywords"
-          content="Самые последние технические новости, новинки технологий, что последнее изобрели в мире, последние гаджеты"
+          content="Технические новости, поиск статей, новинки технологий, последние разработки"
         />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
@@ -74,23 +75,21 @@ const NewsPage: React.FC = () => {
           content={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
         />
       </Head>
+
       <div className={styles.newsPage}>
         <div className="content-container">
           <Breadcrumbs
-            lastText={
-              tags ? (
-                <>
-                  Фильтр:
-                  {tagsArray.map((tag) => (
-                    <Tag key={tag} type="small" tag={tag} />
-                  ))}
-                </>
-              ) : (
-                'Все новости'
-              )
-            }
+            lastText={searchTerm ? `Поиск: ${searchTerm}` : 'Поиск'}
           />
-          <NewsList newsData={posts} />
+
+          <SearchBar onSearch={handleSearch} initialQuery={searchTerm} />
+
+          {posts.length > 0 ? (
+            <NewsList newsData={posts} />
+          ) : (
+            <p>Нет статей по запросу «{searchTerm}»</p>
+          )}
+
           {totalPages > 1 && (
             <Pagination
               currentPage={page}
@@ -104,4 +103,4 @@ const NewsPage: React.FC = () => {
   );
 };
 
-export default NewsPage;
+export default SearchPage;
