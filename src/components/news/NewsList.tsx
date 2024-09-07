@@ -2,7 +2,7 @@ import React from 'react';
 import { IPost } from '@/types/post';
 import { NewsItem } from './NewsItem';
 import styles from './NewsList.module.scss';
-import YandexAdBlock from '../reklama/YandexAdBlock';
+import YandexAdBlock from '../web-tools/YandexAdBlock';
 
 const blockId = process.env.NEXT_PUBLIC_YANDEX_BLOCK_ID2 || '';
 

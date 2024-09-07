@@ -11,8 +11,9 @@ import { IPost } from '@/types/post';
 import { Tag } from '@/components/shared/Tag';
 import { Source } from '@/components/post-sources';
 import styles from './Post.module.scss';
-import YandexAdBlock from '@/components/reklama/YandexAdBlock';
+import YandexAdBlock from '@/components/web-tools/YandexAdBlock';
 import { useEffect } from 'react';
+import { UptolikeScript, UptolikeButtons } from '@/components/shared/social';
 
 const LastNews = dynamic(() => import('@/components/last-news'), {
   loading: () => <p>Загрузка последних новостей...</p>,
@@ -117,6 +118,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
+      <UptolikeScript />
+
       <article className={styles.post}>
         <div className="content-container">
           <Breadcrumbs lastText={title} />
@@ -142,6 +145,10 @@ const Post: React.FC<PostProps> = ({ post }) => {
         </section>
 
         <footer className={clsx(styles.postFooter, 'content-container')}>
+          <div className={styles.social}>
+            <UptolikeButtons />
+          </div>
+
           <ul className={styles.tags}>
             {tags.map((tag) => {
               return (
