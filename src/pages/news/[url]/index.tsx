@@ -146,6 +146,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
 
         <footer className={clsx(styles.postFooter, 'content-container')}>
           <div className={styles.social}>
+            <span>Поделится в соцсетях:</span>
             <UptolikeButtons />
           </div>
 

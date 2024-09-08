@@ -16,6 +16,11 @@
   .social {
     display: flex;
     justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    span {
+      line-height: 36px;
+    }
   }
   .tags {
     list-style: none;
