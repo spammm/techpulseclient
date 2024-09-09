@@ -14,5 +14,8 @@
     display: inline-block;
     width: 12px;
     height: 12px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
   }
 }
