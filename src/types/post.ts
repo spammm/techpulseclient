@@ -6,7 +6,14 @@ export interface IPost {
   subtitle: string;
   content: string;
   tags: string[];
-  image: { src: string; alt: string };
+  image: {
+    src: string;
+    alt: string;
+    source?: string;
+    sourceUrl?: string;
+    width?: number;
+    hight?: number;
+  };
   imageLinks: { src: string; alt: string }[];
   published: boolean;
   createdAt: string;

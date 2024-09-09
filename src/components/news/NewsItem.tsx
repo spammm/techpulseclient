@@ -1,10 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { formatDistanceToNow } from 'date-fns';
 import { ru } from 'date-fns/locale';
-import styles from './NewsItem.module.scss';
+
 import { Tag } from '../shared/Tag';
 import { IPost } from '@/types/post';
+import styles from './NewsItem.module.scss';
 
 interface NewsItemProps {
   news: IPost;
@@ -22,12 +24,13 @@ export const NewsItem: React.FC<NewsItemProps> = (props) => {
     <article className={styles.newsItem}>
       <div className={styles.imageContainer}>
         {image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={image.src}
             alt={image.alt}
             className={styles.image}
             loading="lazy"
+            width={image?.width || 640}
+            height={image?.hight || 480}
           />
         )}
       </div>

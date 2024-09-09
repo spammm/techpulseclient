@@ -1,9 +1,14 @@
+import { useEffect } from 'react';
+import { createRoot } from 'react-dom/client';
 import Head from 'next/head';
 import Script from 'next/script';
+import Image from 'next/image';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { getPostByUrl, incrementViewCount } from '@/api/postsApi';
@@ -12,7 +17,6 @@ import { Tag } from '@/components/shared/Tag';
 import { Source } from '@/components/post-sources';
 import styles from './Post.module.scss';
 import YandexAdBlock from '@/components/web-tools/YandexAdBlock';
-import { useEffect } from 'react';
 import { UptolikeScript, UptolikeButtons } from '@/components/shared/social';
 
 const LastNews = dynamic(() => import('@/components/last-news'), {
@@ -50,6 +54,35 @@ const Post: React.FC<PostProps> = ({ post }) => {
       incrementViewCount(id);
     }
   }, [id]);
+
+  //подключение зума для изображений в контенте
+  useEffect(() => {
+    const images = document.querySelectorAll<HTMLImageElement>(
+      `.${styles.postContentWrapper} img`
+    );
+
+    images.forEach((img) => {
+      const zoomWrapper = document.createElement('div');
+      zoomWrapper.classList.add('zoom-wrapper');
+
+      const zoomComponent = (
+        <Zoom>
+          <Image
+            src={img.src}
+            alt={img.alt}
+            width={img?.width || 800}
+            height={img?.height || 600}
+            quality={100}
+          />
+        </Zoom>
+      );
+
+      img.parentNode?.replaceChild(zoomWrapper, img);
+
+      const root = createRoot(zoomWrapper);
+      root.render(zoomComponent);
+    });
+  }, [content]);
 
   const structuredData = {
     '@context': 'https://schema.org',
