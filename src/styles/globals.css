@@ -36,3 +36,13 @@ a {
   margin-right: auto;
   position: relative;
 }
+
+#__next [class*='social']:has(.utl-mobile) {
+  width: 0;
+  height: 0;
+  font-size: 1px;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  color: transparent;
+}

@@ -17,7 +17,7 @@ const UptolikeButtons = () => {
       data-share-shape="round-rectangle"
       data-share-counter-size="12"
       data-icon-color="#ffffff"
-      data-mobile-sn-ids="vk.tw.ok.wh.tm.vb."
+      data-mobile-sn-ids="vk.wh.tm.vb."
       data-text-color="#000000"
       data-buttons-color="#ffffff"
       data-counter-background-color="#ffffff"
