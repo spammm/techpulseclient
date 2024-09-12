@@ -66,13 +66,22 @@ const Post: React.FC<PostProps> = ({ post }) => {
       zoomWrapper.classList.add('zoom-wrapper');
 
       const zoomComponent = (
-        <Zoom>
+        <Zoom
+          zoomImg={{
+            src: img.getAttribute('data-zoom-src') || img.src,
+            alt: img.alt,
+            width: img.width,
+            height: img.height,
+            srcSet: undefined,
+          }}
+        >
           <Image
             src={img.src}
             alt={img.alt}
             width={img?.width || 800}
             height={img?.height || 600}
-            quality={100}
+            quality={80}
+            data-zoom-src={img.src}
           />
         </Zoom>
       );
