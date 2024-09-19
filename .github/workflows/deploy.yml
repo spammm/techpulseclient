@@ -29,13 +29,6 @@ jobs:
           NEXT_PUBLIC_YANDEX_BLOCK_ID2: ${{ vars.NEXT_PUBLIC_YANDEX_BLOCK_ID2 }}
           NEXT_PUBLIC_YANDEX_BLOCK_ID3: ${{ vars.NEXT_PUBLIC_YANDEX_BLOCK_ID3 }}
           NEXT_PUBLIC_UPTOLIKE_WIDGET_PID: ${{ vars.NEXT_PUBLIC_UPTOLIKE_WIDGET_PID }}
-        run: npm run build
-
-      - name: Stop Apache on VDS
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.VDS_SSH_KEY }}
-          SERVER_HOST: ${{ secrets.VDS_HOST }}
-          SERVER_USER: ${{ secrets.VDS_USER }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           VK_CLIENT_ID: ${{ secrets.VK_CLIENT_ID }}
@@ -44,6 +37,13 @@ jobs:
           YANDEX_CLIENT_SECRET: ${{ secrets.YANDEX_CLIENT_SECRET }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+        run: npm run build
+
+      - name: Stop Apache on VDS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VDS_SSH_KEY }}
+          SERVER_HOST: ${{ secrets.VDS_HOST }}
+          SERVER_USER: ${{ secrets.VDS_USER }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
