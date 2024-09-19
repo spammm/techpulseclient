@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@next/third-parties": "^14.2.7",
+    "@types/next-auth": "^3.13.0",
     "axios": "^1.7.4",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "memory-cache": "^0.2.0",
     "next": "14.2.5",
+    "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
     "react-medium-image-zoom": "^5.2.9",

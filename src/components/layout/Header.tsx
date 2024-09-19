@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { Button } from '../shared/Button';
+import { AuthButton } from '../auth-button/AuthButton';
+
 import styles from './Header.module.scss';
 
 export const Header: React.FC = () => {
@@ -55,6 +57,7 @@ export const Header: React.FC = () => {
           <Link href="/about" className={styles.header__link} role="menuitem">
             О проекте
           </Link>
+          <AuthButton />
         </div>
       </nav>
     </header>

@@ -1,9 +1,12 @@
+import { IUser } from './user';
+import { IPost } from './post';
+
 export interface IComment {
   id: number;
-  postId: number;
-  userId: number;
   content: string;
+  createdAt: string; 
+  updatedAt: string; 
   published: boolean;
-  createdAt: string;
-  updatedAt: string;
+  user: Partial<IUser>; 
+  post: Partial<IPost>; 
 }

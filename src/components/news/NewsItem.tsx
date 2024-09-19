@@ -1,11 +1,10 @@
-import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDistanceToNow } from 'date-fns';
 import { ru } from 'date-fns/locale';
-
 import { Tag } from '../shared/Tag';
 import { IPost } from '@/types/post';
+
 import styles from './NewsItem.module.scss';
 
 interface NewsItemProps {
@@ -43,7 +42,7 @@ export const NewsItem: React.FC<NewsItemProps> = (props) => {
         <ul className={styles.tags}>
           {tags.map((tag) => {
             return (
-              <li key={tag} className={styles.tag}>
+              <li key={tag + url} className={styles.tag}>
                 <Tag tag={tag} />
               </li>
             );

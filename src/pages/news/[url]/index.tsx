@@ -8,16 +8,17 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
-
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { getPostByUrl, incrementViewCount } from '@/api/postsApi';
 import { IPost } from '@/types/post';
 import { Tag } from '@/components/shared/Tag';
 import { Source } from '@/components/post-sources';
-import styles from './Post.module.scss';
 import YandexAdBlock from '@/components/web-tools/YandexAdBlock';
 import { UptolikeScript, UptolikeButtons } from '@/components/shared/social';
+import { Comments } from '@/components/comments';
+
+import styles from './Post.module.scss';
+import 'react-medium-image-zoom/dist/styles.css';
 
 const LastNews = dynamic(() => import('@/components/last-news'), {
   loading: () => <p>Загрузка последних новостей...</p>,
@@ -206,6 +207,9 @@ const Post: React.FC<PostProps> = ({ post }) => {
             {sources.map((source) => (
               <Source key={source.name} source={source} />
             ))}
+          </div>
+          <div className={styles.comments}>
+            <Comments postId={id} key={id} />
           </div>
           <section className="content-container">
             <h3>Смотрите также последние новости с главной страницы</h3>

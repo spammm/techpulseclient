@@ -1,0 +1,56 @@
+.authButton {
+  position: relative;
+}
+
+.loginButton {
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.profileButton {
+  position: relative;
+}
+
+.menuButton {
+  color: white;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.menuOpen {
+}
+
+.dropdownMenu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  border: 1px solid #ddd;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 150px;
+  z-index: 100;
+}
+
+.dropdownMenu li {
+  padding: 8px 16px;
+}
+
+.dropdownMenu li button {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdownMenu li button:hover {
+  background-color: #f5f5f5;
+}

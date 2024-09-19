@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
+
 import styles from './Footer.module.scss';
 
 export const Footer: React.FC = () => {
@@ -23,7 +24,7 @@ export const Footer: React.FC = () => {
           >
             Telegram
           </Link>
-          <Link
+          {/* <Link
             href="https://vk.com/techpulse"
             target="_blank"
             className={styles.footer__socialLink}
@@ -31,7 +32,7 @@ export const Footer: React.FC = () => {
             rel="noopener noreferrer"
           >
             ВКонтакте
-          </Link>
+          </Link> */}
         </div>
       </div>
     </footer>

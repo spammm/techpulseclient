@@ -1,0 +1,38 @@
+.errorPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #f8f9fa;
+  height: 100%;
+}
+
+.errorTitle {
+  color: var(--whiteblock-text-color);
+  margin-bottom: 1rem;
+}
+
+.errorMessage {
+  font-size: 1.25rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+.link {
+  font-size: 1rem;
+  color: #007bff;
+  text-decoration: none;
+  margin-top: 1rem;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #0056b3;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
