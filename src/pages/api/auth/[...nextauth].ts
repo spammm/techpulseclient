@@ -84,7 +84,7 @@ export const authOptions: NextAuthOptions = {
         token.lastName = session.lastName || token.lastName;
         token.publicAlias = session.publicAlias || token.publicAlias;
       }
-
+      console.log('jwt user:', user);
       if (user) {
         token.id = user.id ? Number(user.id) : 0;
         token.email = user.email ?? 'unknown';
