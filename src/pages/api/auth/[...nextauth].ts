@@ -59,6 +59,11 @@ export const authOptions: NextAuthOptions = {
     VKProvider({
       clientId: process.env.VK_CLIENT_ID as string,
       clientSecret: process.env.VK_CLIENT_SECRET as string,
+      authorization: {
+        params: {
+          scope: 'email,profile',
+        },
+      },
     }),
     YandexProvider({
       clientId: process.env.YANDEX_CLIENT_ID as string,
