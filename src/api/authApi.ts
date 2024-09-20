@@ -50,10 +50,12 @@ export const refreshAccessToken = async (): Promise<RefreshToken> => {
 };
 
 export const socialLogin = async (loginData: {
+  image?: string;
   email: string;
   name: string;
   provider: string;
   providerId: string;
+  accessToken?: string;
 }) => {
   try {
     const response = await api.post('/auth/social-login', loginData);
