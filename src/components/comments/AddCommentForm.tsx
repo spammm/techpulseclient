@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { useState, useEffect, MouseEventHandler } from 'react';
+import { signIn, useSession } from 'next-auth/react';
 import { addCommentToPost } from '@/api/commentsApi';
 import { IComment } from '@/types/comment';
 
@@ -19,6 +19,11 @@ const AddCommentForm: React.FC<AddCommentFormProps> = ({
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
+
+  const handleSignIn: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.preventDefault();
+    signIn();
+  };
 
   useEffect(() => {
     const lastCommentTime = localStorage.getItem(`lastCommentTime_${postId}`);
@@ -73,7 +78,20 @@ const AddCommentForm: React.FC<AddCommentFormProps> = ({
   };
 
   if (!session) {
-    return <p>Вы должны быть авторизованы, чтобы оставлять комментарии.</p>;
+    return (
+      <p>
+        Вы должны быть{' '}
+        <a
+          className={styles.authLink}
+          href="#"
+          rel="noreferrer"
+          onClick={handleSignIn}
+        >
+          авторизованы
+        </a>
+        , чтобы оставлять комментарии.
+      </p>
+    );
   }
 
   if (timeLeft > 0) {
