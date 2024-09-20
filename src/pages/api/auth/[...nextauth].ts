@@ -1,11 +1,18 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google';
 import VKProvider from 'next-auth/providers/vk';
-import YandexProvider from 'next-auth/providers/yandex';
+import YandexProvider, { YandexProfile } from 'next-auth/providers/yandex';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { socialLogin, clientLogin } from '@/api/authApi';
+import { VKProfile } from '@/types/socialProviders';
 
 const API_SERVER = process.env.NEXT_PUBLIC_API_SERVER;
+
+interface Tokens {
+  accessToken?: string;
+  refreshToken?: string;
+  accessTokenExpiresIn?: number;
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -84,19 +91,7 @@ export const authOptions: NextAuthOptions = {
         token.lastName = session.lastName || token.lastName;
         token.publicAlias = session.publicAlias || token.publicAlias;
       }
-      console.log('profile: ', profile);
-      console.log('account: ', account);
-      if (account && typeof account.accessToken === 'string') {
-        token.accessToken = account.accessToken;
-      }
-      if (account && typeof account.refreshToken === 'string') {
-        token.refreshToken = account.refreshToken;
-      }
-      if (account && typeof account.accessTokenExpires === 'number') {
-        token.accessTokenExpires = account.accessTokenExpires;
-      }
 
-      console.log('jwt user:', user);
       if (user) {
         token.id = user.id ? Number(user.id) : 0;
         token.email = user.email ?? 'unknown';
@@ -106,6 +101,78 @@ export const authOptions: NextAuthOptions = {
         token.accessToken = user.accessToken ?? '';
         token.refreshToken = user.refreshToken ?? '';
         token.accessTokenExpires = user.accessTokenExpires ?? 0;
+      }
+
+      if (account && profile) {
+        try {
+          let avatar = '/avatar.webp';
+          let firstName = '';
+          let lastName = '';
+          let email = '';
+
+          if (account.provider === 'vk' && 'response' in profile) {
+            const vkProfile = profile as VKProfile;
+            firstName = vkProfile.response[0].first_name;
+            lastName = vkProfile.response[0].last_name;
+            avatar = vkProfile.response[0].photo_100;
+            email = typeof account.email === 'string' ? account.email : '';
+          }
+
+          if (account.provider === 'google' && 'given_name' in profile) {
+            const googleProfile = profile as GoogleProfile;
+            firstName = googleProfile.given_name;
+            lastName = googleProfile.family_name || '';
+            avatar = googleProfile.picture;
+            email = googleProfile.email || '';
+          }
+
+          if (account.provider === 'yandex' && 'first_name' in profile) {
+            const yandexProfile = profile as YandexProfile;
+            firstName =
+              yandexProfile.first_name ||
+              yandexProfile.real_name ||
+              yandexProfile.display_name ||
+              '';
+            lastName = yandexProfile.last_name || '';
+            avatar = '/avatar.webp';
+            email =
+              yandexProfile.default_email ||
+              (Array.isArray(yandexProfile.emails)
+                ? yandexProfile.emails[0]
+                : '') ||
+              '';
+          }
+
+          const loginData = {
+            email: email || user?.email || '',
+            name: firstName,
+            lastName: lastName,
+            provider: account.provider,
+            providerId: account.providerAccountId,
+            accessToken: account.access_token,
+            avatar: avatar,
+          };
+
+          const tokens: Tokens = await socialLogin(loginData);
+
+          const { accessToken, refreshToken, accessTokenExpiresIn } = tokens;
+
+          const accessTokenExpires =
+            accessTokenExpiresIn && Date.now() + accessTokenExpiresIn;
+
+          token = {
+            ...token,
+            accessToken,
+            refreshToken,
+            accessTokenExpires,
+            firstName,
+            lastName,
+            email,
+            avatar,
+          };
+        } catch (error) {
+          console.error('Error in JWT callback:', error);
+        }
       }
 
       if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
@@ -147,6 +214,7 @@ export const authOptions: NextAuthOptions = {
         publicAlias:
           typeof token.publicAlias === 'string' ? token.publicAlias : '',
         email: token.email || 'unknown',
+        avatar: token.avatar || '/avatar.webp',
         accessToken: token.accessToken,
         refreshToken: token.refreshToken,
         accessTokenExpires: token.accessTokenExpires,
@@ -157,51 +225,6 @@ export const authOptions: NextAuthOptions = {
 
   pages: {
     error: '/auth/error', // Страница для показа ошибок
-  },
-  events: {
-    async signIn({ user, account }: { user: any; account: any }) {
-      if (account?.provider) {
-        try {
-          const tokens = await socialLogin({
-            image: user.image || '/avatar.webp',
-            email: user.email || account.email || '',
-            name:
-              user.name ||
-              user.firstName ||
-              account.providerAccountId ||
-              user.email ||
-              '',
-            provider: account.provider,
-            providerId: account.providerAccountId,
-            accessToken: account.access_token,
-          });
-          console.log('tokens: ', tokens);
-          if (tokens) {
-            user.accessToken = tokens.accessToken;
-            user.refreshToken = tokens.refreshToken;
-            user.accessTokenExpires = Date.now() + tokens.accessTokenExpiresIn;
-
-            account.accessToken = tokens.accessToken;
-            account.refreshToken = tokens.refreshToken;
-            account.accessTokenExpiresIn =
-              Date.now() + tokens.accessTokenExpiresIn;
-          }
-        } catch (error) {
-          if (
-            error instanceof Error &&
-            error.message.includes('invalid_grant')
-          ) {
-            console.error('OAuth code expired or invalid:', error);
-            throw new Error(
-              'Ошибка при авторизации через Яндекс: код истек или недействителен.'
-            );
-          } else {
-            console.error('Unknown error during social login:', error);
-            throw new Error('Ошибка при авторизации через соцсеть');
-          }
-        }
-      }
-    },
   },
 };
 
