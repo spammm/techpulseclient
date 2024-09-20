@@ -161,7 +161,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <UptolikeScript />
+      <UptolikeScript key={id} />
 
       <article className={styles.post}>
         <div className="content-container">
