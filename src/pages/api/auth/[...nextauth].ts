@@ -149,12 +149,18 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user, account }: { user: any; account: any }) {
       if (account?.provider) {
         try {
-          await socialLogin({
+          const tokens = await socialLogin({
             email: user.email || '',
-            name: user.firstName || user.email || '', // Изменили на firstName
+            name: user.firstName || user.email || '', // Имя пользователя
             provider: account.provider,
             providerId: account.providerAccountId,
           });
+
+          if (tokens) {
+            user.accessToken = tokens.accessToken;
+            user.refreshToken = tokens.refreshToken;
+            user.accessTokenExpires = Date.now() + tokens.accessTokenExpiresIn;
+          }
         } catch (error) {
           console.error('Error during social login:', error);
         }
