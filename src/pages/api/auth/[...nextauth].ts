@@ -73,6 +73,7 @@ export const authOptions: NextAuthOptions = {
           scope: 'login:email login:info',
         },
       },
+      checks: ['state'],
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
@@ -162,14 +163,25 @@ export const authOptions: NextAuthOptions = {
             providerId: account.providerAccountId,
             accessToken: account.access_token,
           });
-
+          console.log('tokens: ', tokens);
           if (tokens) {
             user.accessToken = tokens.accessToken;
             user.refreshToken = tokens.refreshToken;
             user.accessTokenExpires = Date.now() + tokens.accessTokenExpiresIn;
           }
         } catch (error) {
-          console.error('Error during social login:', error);
+          if (
+            error instanceof Error &&
+            error.message.includes('invalid_grant')
+          ) {
+            console.error('OAuth code expired or invalid:', error);
+            throw new Error(
+              'Ошибка при авторизации через Яндекс: код истек или недействителен.'
+            );
+          } else {
+            console.error('Unknown error during social login:', error);
+            throw new Error('Ошибка при авторизации через соцсеть');
+          }
         }
       }
     },
