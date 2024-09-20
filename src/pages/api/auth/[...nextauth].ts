@@ -78,12 +78,24 @@ export const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, user, trigger, session, account, profile }) {
       if (trigger === 'update' && session) {
         token.firstName = session.firstName || token.firstName;
         token.lastName = session.lastName || token.lastName;
         token.publicAlias = session.publicAlias || token.publicAlias;
       }
+      console.log('profile: ', profile);
+      console.log('account: ', account);
+      if (account && typeof account.accessToken === 'string') {
+        token.accessToken = account.accessToken;
+      }
+      if (account && typeof account.refreshToken === 'string') {
+        token.refreshToken = account.refreshToken;
+      }
+      if (account && typeof account.accessTokenExpires === 'number') {
+        token.accessTokenExpires = account.accessTokenExpires;
+      }
+
       console.log('jwt user:', user);
       if (user) {
         token.id = user.id ? Number(user.id) : 0;
@@ -168,6 +180,11 @@ export const authOptions: NextAuthOptions = {
             user.accessToken = tokens.accessToken;
             user.refreshToken = tokens.refreshToken;
             user.accessTokenExpires = Date.now() + tokens.accessTokenExpiresIn;
+
+            account.accessToken = tokens.accessToken;
+            account.refreshToken = tokens.refreshToken;
+            account.accessTokenExpiresIn =
+              Date.now() + tokens.accessTokenExpiresIn;
           }
         } catch (error) {
           if (
