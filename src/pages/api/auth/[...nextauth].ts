@@ -147,11 +147,13 @@ export const authOptions: NextAuthOptions = {
   },
   events: {
     async signIn({ user, account }: { user: any; account: any }) {
+      console.log('User from provider:', user);
+      console.log('Account from provider:', account);
       if (account?.provider) {
         try {
           const tokens = await socialLogin({
             email: user.email || '',
-            name: user.firstName || user.email || '', // Имя пользователя
+            name: user.firstName || user.email || '',
             provider: account.provider,
             providerId: account.providerAccountId,
           });
