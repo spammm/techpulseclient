@@ -29,6 +29,25 @@ export default function App({
   const canonicalUrl = `${NEXT_PUBLIC_SITE_URL}${router.asPath}`;
   const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG;
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Поиск на TechPulse',
+    url: NEXT_PUBLIC_SITE_URL,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${NEXT_PUBLIC_SITE_URL}/search?q={search_term_string}`,
+      },
+      'query-input': {
+        '@type': 'PropertyValueSpecification',
+        valueRequired: true,
+        valueName: 'search_term_string',
+      },
+    },
+  };
+
   return (
     <>
       <Head>
@@ -48,6 +67,11 @@ export default function App({
           content={`${process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION}`}
         />
         <link rel="canonical" href={canonicalUrl} />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </Head>
 
       {googleTagId && <GoogleTagManager gtmId={googleTagId} />}

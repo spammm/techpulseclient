@@ -60,24 +60,6 @@ const SearchPage: React.FC = () => {
   const pageDescription =
     'Поиск последних технических новостей и статей на TechPulse. Найдите статьи по интересующим вас темам.';
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    url: NEXT_PUBLIC_SITE_URL,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${NEXT_PUBLIC_SITE_URL}/search?q={search_term_string}`,
-      },
-      'query-input': {
-        '@type': 'PropertyValueSpecification',
-        valueRequired: true,
-        valueName: 'search_term_string',
-      },
-    },
-  };
-
   return (
     <>
       <Head>
@@ -105,10 +87,6 @@ const SearchPage: React.FC = () => {
         <meta
           name="twitter:image"
           content={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </Head>
 
