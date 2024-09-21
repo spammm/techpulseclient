@@ -19,14 +19,14 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Технический новостной портал</title>
+        <title>Портал технических новостей</title>
         <meta
           name="description"
           content="Ваш источник последних технических новостей и будущих разработок"
         />
         <meta
           name="keywords"
-          content="технологии, новости, разработки, гаджеты, IT"
+          content="технологии, новости, разработки, гаджеты, IT, новости технологий, последние технологии, самые новые технологии"
         />
         <meta property="og:title" content="TechPulse - Новости технологий" />
         <meta

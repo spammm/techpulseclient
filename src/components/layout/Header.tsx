@@ -19,10 +19,12 @@ export const Header: React.FC = () => {
       <nav
         className={clsx(styles.header__nav, 'content-container')}
         aria-label="Main Navigation"
+        itemScope
+        itemType="https://schema.org/SiteNavigationElement"
       >
         <Link
           className={styles.logo}
-          href={'/'}
+          href="/"
           title="Переход на главную страницу"
         >
           <Image
@@ -48,14 +50,29 @@ export const Header: React.FC = () => {
           })}
           role="menu"
         >
-          <Link href="/news" className={styles.header__link} role="menuitem">
-            Новости
+          <Link
+            href="/news"
+            className={styles.header__link}
+            role="menuitem"
+            itemProp="url"
+          >
+            <span itemProp="name">Новости</span>
           </Link>
-          <Link href="/search" className={styles.header__link} role="menuitem">
-            Поиск по сайту
+          <Link
+            href="/search"
+            className={styles.header__link}
+            role="menuitem"
+            itemProp="url"
+          >
+            <span itemProp="name">Поиск по сайту</span>
           </Link>
-          <Link href="/about" className={styles.header__link} role="menuitem">
-            О проекте
+          <Link
+            href="/about"
+            className={styles.header__link}
+            role="menuitem"
+            itemProp="url"
+          >
+            <span itemProp="name">О проекте</span>
           </Link>
           <AuthButton />
         </div>

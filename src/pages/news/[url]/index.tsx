@@ -103,11 +103,11 @@ const Post: React.FC<PostProps> = ({ post }) => {
     dateModified: publishedAt,
     author: {
       '@type': 'Person',
-      name: authorName || 'Алина',
+      name: authorName || 'John Doe',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'TechPulse',
+      name: 'Техпульс',
       logo: {
         '@type': 'ImageObject',
         url: `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,
