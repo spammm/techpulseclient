@@ -7,21 +7,34 @@ import { getPublishedPosts } from '../../api/postsApi';
 import { IPost } from '@/types/post';
 import { Pagination } from '@/components/pagination';
 import { SearchBar } from '@/components/SearchBar';
+
 import styles from '../../styles/NewsPage.module.scss';
 
 const NEXT_PUBLIC_SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 const SearchPage: React.FC = () => {
+  const router = useRouter();
+  const { q } = router.query;
   const [posts, setPosts] = useState<IPost[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof q === 'string') {
+      setSearchTerm(q);
+    } else {
+      setSearchTerm('');
+    }
+  }, [q]);
 
   const handleSearch = (query: string) => {
     setPage(1);
-    setSearchTerm(query);
+    router.push({
+      pathname: '/search',
+      query: { q: query },
+    });
   };
 
   useEffect(() => {
@@ -47,10 +60,21 @@ const SearchPage: React.FC = () => {
   const pageDescription =
     'Поиск последних технических новостей и статей на TechPulse. Найдите статьи по интересующим вас темам.';
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    url: NEXT_PUBLIC_SITE_URL,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${NEXT_PUBLIC_SITE_URL}/search?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
   return (
     <>
       <Head>
-        <title>{`${pageTitle} | TechPulse`}</title>
+        <title>{`${pageTitle} | ТехПульс`}</title>
         <meta name="description" content={pageDescription} />
         <meta
           name="keywords"
@@ -74,6 +98,10 @@ const SearchPage: React.FC = () => {
         <meta
           name="twitter:image"
           content={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </Head>
 

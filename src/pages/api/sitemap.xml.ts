@@ -47,6 +47,11 @@ async function generateSitemap(): Promise<string> {
       changefreq: 'weekly',
       priority: '0.9',
     },
+    {
+      loc: `${process.env.NEXT_PUBLIC_SITE_URL}/search`,
+      changefreq: 'monthly',
+      priority: '0.9',
+    },
   ];
 
   const allPages = [...staticPages, ...postUrls];

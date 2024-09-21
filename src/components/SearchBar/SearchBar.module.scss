@@ -8,10 +8,18 @@
 .searchInput {
   flex: 1;
   margin-right: 10px;
+  &:focus {
+    outline: 2px solid #005fcc;
+    outline-offset: 2px;
+  }
 }
 
 .searchButton {
   flex-shrink: 0;
+  &:focus {
+    outline: 2px solid #005fcc;
+    outline-offset: 2px;
+  }
 }
 
 .sr-only {
