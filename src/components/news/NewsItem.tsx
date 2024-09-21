@@ -29,6 +29,7 @@ export const NewsItem: React.FC<NewsItemProps> = (props) => {
     '@type': 'NewsArticle',
     headline: title,
     image: image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL}/news/${url}`,
     datePublished: new Date(publishedAt).toISOString(),
     author: {
       '@type': 'Person',

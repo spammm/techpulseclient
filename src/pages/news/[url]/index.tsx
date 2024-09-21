@@ -99,6 +99,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
     '@type': 'NewsArticle',
     headline: title,
     image: image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL}/news/${url}`,
     datePublished: publishedAt,
     dateModified: publishedAt,
     author: {
