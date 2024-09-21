@@ -109,6 +109,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
     publisher: {
       '@type': 'Organization',
       name: 'Техпульс',
+      url: `${NEXT_PUBLIC_SITE_URL}`,
       logo: {
         '@type': 'ImageObject',
         url: `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,

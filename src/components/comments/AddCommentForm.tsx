@@ -96,24 +96,34 @@ const AddCommentForm: React.FC<AddCommentFormProps> = ({
 
   if (timeLeft > 0) {
     return (
-      <p>
-        Комментарии можно оставлять не чаще, чем раз в 10 минут.{' '}
-        {formatTimeLeft(timeLeft)}.
-      </p>
+      <div className={styles.timer}>
+        <p>Комментарии можно оставлять не чаще, чем раз в 10 минут.</p>
+        <progress value={600 - timeLeft} max="600" />
+        <p>{formatTimeLeft(timeLeft)}.</p>
+      </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className={styles.addCommentForm}>
+      <label htmlFor="comment">Напишите комментарий:</label>
       <textarea
+        id="comment"
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         placeholder="Напишите комментарий..."
         className={styles.commentInput}
+        maxLength={500}
       ></textarea>
-      {error && <p className={styles.error}>{error}</p>}
+      <small className={styles.commentLength}>Осталось {500 - comment.length} символов</small>
+      {error && (
+        <p className={styles.error} role="alert" aria-live="assertive">
+          {error}
+        </p>
+      )}
       <button
         type="submit"
+        aria-label="Отправить комментарий"
         disabled={isSubmitting}
         className={styles.submitButton}
       >

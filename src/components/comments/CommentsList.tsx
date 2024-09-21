@@ -64,22 +64,40 @@ const CommentsList: React.FC<CommentsListProps> = ({
     <div className={styles.commentsList}>
       <h3>Комментарии</h3>
       {comments.map((comment) => (
-        <div key={comment.id} className={styles.comment}>
-          <p>{comment.content}</p>
+        <article key={comment.id} className={styles.comment}>
+          <p itemProp="text">{comment.content}</p>
           <p>
-            {new Date(comment.createdAt).toLocaleDateString('ru-RU', {
-              day: '2-digit',
-              month: '2-digit',
-              year: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit',
-            })}{' '}
-            от {comment.user.publicAlias || comment.user.firstName || 'Вас'}
+            <time
+              itemProp="dateCreated"
+              dateTime={new Date(comment.createdAt).toISOString()}
+            >
+              {new Date(comment.createdAt).toLocaleDateString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
+            </time>{' '}
+            от{' '}
+            <span
+              itemProp="author"
+              itemScope
+              itemType="https://schema.org/Person"
+            >
+              <span itemProp="name">
+                {comment.user.publicAlias || comment.user.firstName || 'Вас'}
+              </span>
+            </span>
           </p>
-        </div>
+        </article>
       ))}
       {hasMore && (
-        <button onClick={loadMore} className={styles.loadMoreButton}>
+        <button
+          onClick={loadMore}
+          className={styles.loadMoreButton}
+          aria-label="Загрузить еще комментарии"
+        >
           Загрузить еще
         </button>
       )}

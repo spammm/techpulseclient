@@ -50,7 +50,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             onClick={() => onPageChange(page)}
             disabled={page === currentPage}
             aria-current={page === currentPage ? 'page' : undefined}
-            aria-label={`Страница ${page}`}
+            aria-label={`Перейти на страницу ${page}`}
           >
             {page}
           </button>
