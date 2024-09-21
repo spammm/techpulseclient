@@ -58,6 +58,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         onClick={handleSearch}
         className={styles.searchButton}
         aria-label="Запустить поиск"
+        variant="white"
       >
         Искать
       </Button>

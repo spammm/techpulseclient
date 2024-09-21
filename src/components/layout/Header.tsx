@@ -43,39 +43,47 @@ export const Header: React.FC = () => {
           aria-controls="main-menu"
           aria-label="Toggle Menu"
         />
-        <div
+        <ul
           id="main-menu"
           className={clsx(styles.header__links, {
             [styles.header__links_hidden]: !isMenuOpen,
           })}
           role="menu"
         >
-          <Link
-            href="/news"
-            className={styles.header__link}
-            role="menuitem"
-            itemProp="url"
-          >
-            <span itemProp="name">Новости</span>
-          </Link>
-          <Link
-            href="/search"
-            className={styles.header__link}
-            role="menuitem"
-            itemProp="url"
-          >
-            <span itemProp="name">Поиск по сайту</span>
-          </Link>
-          <Link
-            href="/about"
-            className={styles.header__link}
-            role="menuitem"
-            itemProp="url"
-          >
-            <span itemProp="name">О проекте</span>
-          </Link>
-          <AuthButton />
-        </div>
+          <li role="none">
+            <Link
+              href="/news"
+              className={styles.header__link}
+              role="menuitem"
+              itemProp="url"
+            >
+              <span itemProp="name">Новости</span>
+            </Link>
+          </li>
+          <li role="none">
+            <Link
+              href="/search"
+              className={styles.header__link}
+              role="menuitem"
+              itemProp="url"
+            >
+              <span itemProp="name">Поиск по сайту</span>
+            </Link>
+          </li>
+          <li role="none">
+            <Link
+              href="/about"
+              className={styles.header__link}
+              role="menuitem"
+              itemProp="url"
+            >
+              <span itemProp="name">О проекте</span>
+            </Link>
+          </li>
+          <li role="none">
+            <AuthButton />
+          </li>
+        </ul>
       </nav>
     </header>
   );

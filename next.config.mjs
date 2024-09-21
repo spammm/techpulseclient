@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  productionBrowserSourceMaps: process.env.NEXT_PUBLIC_ENVIRONMENT === 'stage',
   images: {
     remotePatterns: [
       {

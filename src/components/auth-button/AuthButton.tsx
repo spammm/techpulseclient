@@ -56,7 +56,11 @@ export const AuthButton: React.FC = () => {
     <div className={styles.authButton}>
       {!session ? (
         <>
-          <button onClick={handleSignIn} className={styles.loginButton}>
+          <button
+            onClick={handleSignIn}
+            className={styles.loginButton}
+            role="menuitem"
+          >
             Войти
           </button>
         </>
@@ -69,11 +73,13 @@ export const AuthButton: React.FC = () => {
             })}
             aria-expanded={isMenuOpen}
             aria-haspopup="true"
+            aria-controls="auth-menu"
+            role="button"
           >
             {userName.slice(0, 10)}
           </button>
           {isMenuOpen && (
-            <ul className={styles.dropdownMenu} role="menu">
+            <ul className={styles.dropdownMenu} role="menu" id="auth-menu">
               <li role="menuitem">
                 <button onClick={openProfileModal}>Профиль</button>
               </li>
