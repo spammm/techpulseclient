@@ -37,7 +37,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       className={styles.searchContainer}
       onSubmit={(e) => e.preventDefault()}
       itemScope
-      itemType="https://schema.org/SearchAction"
       role="search"
     >
       <span itemProp="target" style={{ display: 'none' }}>
