@@ -66,8 +66,15 @@ const SearchPage: React.FC = () => {
     url: NEXT_PUBLIC_SITE_URL,
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${NEXT_PUBLIC_SITE_URL}/search?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${NEXT_PUBLIC_SITE_URL}/search?q={search_term_string}`,
+      },
+      'query-input': {
+        '@type': 'PropertyValueSpecification',
+        valueRequired: true,
+        valueName: 'search_term_string',
+      },
     },
   };
 
