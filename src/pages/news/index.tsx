@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { NewsList } from '@/components/news';
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import { getPublishedPosts } from '../../api/postsApi';
+import { getPublishedPosts } from '@/api/postsApi';
 import { IPost } from '@/types/post';
 import { Pagination } from '@/components/pagination';
 import { Tag } from '@/components/shared/Tag';

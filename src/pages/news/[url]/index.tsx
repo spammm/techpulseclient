@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import Script from 'next/script';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -15,7 +14,7 @@ import { Source } from '@/components/post-sources';
 import { YandexAdBlock } from '@/components/shared/YandexAdBlock';
 import { UptolikeScript, UptolikeButtons } from '@/components/shared/social';
 import { Comments } from '@/components/comments';
-import { MetaTags, PostPageSEO } from '@/components/seo';
+import { PostPageSEO } from '@/components/seo';
 
 import styles from './Post.module.scss';
 import 'react-medium-image-zoom/dist/styles.css';
