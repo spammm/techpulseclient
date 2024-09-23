@@ -3,7 +3,7 @@ import Head from 'next/head';
 const NEXT_PUBLIC_SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-export const AboutPageSEO = () => (
+export const AboutPageSEO: React.FC = () => (
   <Head>
     <title>О нас | ТехПульс</title>
     <meta

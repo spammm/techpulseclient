@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import { NewsList } from '@/components/news';
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import { getPublishedPosts } from '../../api/postsApi';
+import { getPublishedPosts } from '@/api/postsApi';
 import { IPost } from '@/types/post';
 import { Pagination } from '@/components/pagination';
 import { SearchBar } from '@/components/SearchBar';
+import { SearchPageSEO } from '@/components/seo';
 
 import styles from '../../styles/NewsPage.module.scss';
 
@@ -20,6 +20,8 @@ const SearchPage: React.FC = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof q === 'string') {
@@ -37,8 +39,10 @@ const SearchPage: React.FC = () => {
     });
   };
 
-  useEffect(() => {
-    const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
+    setLoading(true);
+    setErrorMessage(null);
+    try {
       const { posts, totalPages } = await getPublishedPosts(
         page,
         [],
@@ -47,69 +51,65 @@ const SearchPage: React.FC = () => {
       );
       setPosts(posts);
       setTotalPages(totalPages);
-    };
+    } catch (error) {
+      setErrorMessage('Ошибка загрузки статей. Попробуйте позже.');
+      console.log('Ошибка загрузки статей в поиске:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [page, searchTerm]);
 
+  useEffect(() => {
     if (searchTerm) {
       fetchPosts();
     }
-  }, [page, searchTerm]);
+  }, [fetchPosts, searchTerm]);
 
   const pageTitle = searchTerm
     ? `Результаты поиска: ${searchTerm}`
     : 'Поиск статей';
   const pageDescription =
-    'Поиск последних технических новостей и статей на TechPulse. Найдите статьи по интересующим вас темам.';
+    'Поиск последних технических новостей и статей на ТехПульс. Найдите статьи по интересующим вас темам.';
 
   return (
     <>
-      <Head>
-        <title>{`${pageTitle} | ТехПульс`}</title>
-        <meta name="description" content={pageDescription} />
-        <meta
-          name="keywords"
-          content="Технические новости, поиск статей, новинки технологий, последние разработки"
-        />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content={`${NEXT_PUBLIC_SITE_URL}${router.asPath}`}
-        />
-        <meta
-          property="og:image"
-          content={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
-        />
-        <meta property="og:site_name" content="TechPulse" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDescription} />
-        <meta
-          name="twitter:image"
-          content={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
-        />
-      </Head>
+      <SearchPageSEO
+        title={pageTitle}
+        description={pageDescription}
+        keywords="Технические новости, поиск статей, новинки технологий, последние разработки"
+        url={`${NEXT_PUBLIC_SITE_URL}${router.asPath}`}
+        image={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
+      />
 
       <div className={styles.newsPage}>
         <div className="content-container">
           <Breadcrumbs
             lastText={searchTerm ? `Поиск: ${searchTerm}` : 'Поиск'}
           />
-
           <SearchBar onSearch={handleSearch} initialQuery={searchTerm} />
 
-          {posts.length > 0 ? (
-            <NewsList newsData={posts} />
+          {loading ? (
+            <p>Загрузка...</p>
           ) : (
-            <p>Нет статей по запросу «{searchTerm}»</p>
-          )}
-
-          {totalPages > 1 && (
-            <Pagination
-              currentPage={page}
-              totalPages={totalPages}
-              onPageChange={setPage}
-            />
+            <>
+              {errorMessage && (
+                <p className={styles.errorMessage}>{errorMessage}</p>
+              )}
+              {posts.length > 0 ? (
+                <NewsList newsData={posts} />
+              ) : searchTerm ? (
+                <p>Нет статей по запросу «{searchTerm}»</p>
+              ) : (
+                <p>Введите поисковый запрос, чтобы найти статьи на сайте.</p>
+              )}
+              {totalPages > 1 && (
+                <Pagination
+                  currentPage={page}
+                  totalPages={totalPages}
+                  onPageChange={setPage}
+                />
+              )}
+            </>
           )}
         </div>
       </div>

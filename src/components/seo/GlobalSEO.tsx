@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 const NEXT_PUBLIC_SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-export const GlobalSEO = () => {
+export const GlobalSEO: React.FC = () => {
   const router = useRouter();
   const canonicalUrl = `${NEXT_PUBLIC_SITE_URL}${router.asPath}`;
 

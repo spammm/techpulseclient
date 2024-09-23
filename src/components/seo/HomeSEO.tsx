@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-export const HomeSEO = () => {
+export const HomeSEO: React.FC = () => {
   const NEXT_PUBLIC_SITE_URL =
     process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
