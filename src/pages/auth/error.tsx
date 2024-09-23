@@ -5,30 +5,24 @@ import { Button } from '@/components/shared/Button';
 
 import styles from '@/styles/ErrorPage.module.scss';
 
+const errorMessages: Record<string, string> = {
+  CredentialsSignin: 'Неверный email или пароль.',
+  UserNotFound: 'Пользователь не найден. Зарегистрируйтесь!',
+  OAuthAccountNotLinked:
+    'Этот email уже используется, но не привязан к соцсети. Пожалуйста, войдите с использованием email и пароля.',
+};
+
 const ErrorPage = () => {
   const router = useRouter();
   const { error } = router.query;
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    console.log('error: ', error);
     if (error) {
-      switch (error) {
-        case 'CredentialsSignin':
-          setErrorMessage('Неверный email или пароль.');
-          break;
-        case 'UserNotFound':
-          setErrorMessage('Пользователь не найден. Зарегистрируйтесь!');
-          break;
-        case 'OAuthAccountNotLinked':
-          setErrorMessage(
-            'Этот email уже используется, но не привязан к соцсети. Пожалуйста, войдите с использованием email и пароля.'
-          );
-          break;
-        default:
-          setErrorMessage('Произошла ошибка при входе. Попробуйте снова.');
-          break;
-      }
+      setErrorMessage(
+        errorMessages[error as string] ||
+          'Произошла ошибка при входе. Попробуйте снова.'
+      );
     }
   }, [error]);
 
