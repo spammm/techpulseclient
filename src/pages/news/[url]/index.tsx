@@ -15,7 +15,7 @@ import { Source } from '@/components/post-sources';
 import { YandexAdBlock } from '@/components/shared/YandexAdBlock';
 import { UptolikeScript, UptolikeButtons } from '@/components/shared/social';
 import { Comments } from '@/components/comments';
-import { MetaTags } from '@/components/seo';
+import { MetaTags, PostPageSEO } from '@/components/seo';
 
 import styles from './Post.module.scss';
 import 'react-medium-image-zoom/dist/styles.css';
@@ -92,52 +92,18 @@ const Post: React.FC<PostProps> = ({ post }) => {
     });
   }, [content]);
 
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'NewsArticle',
-    headline: title,
-    image: image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,
-    url: `${NEXT_PUBLIC_SITE_URL}/news/${url}`,
-    datePublished: publishedAt,
-    dateModified: publishedAt,
-    author: {
-      '@type': 'Person',
-      name: authorName || 'John Doe',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'ТехПульс',
-      url: NEXT_PUBLIC_SITE_URL,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,
-      },
-    },
-    description: subtitle || content.substring(0, 200),
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `${NEXT_PUBLIC_SITE_URL}/news/${url}`,
-    },
-  };
-
   return (
     <>
-      <MetaTags
+      <PostPageSEO
         title={`${title} | ТехПульс`}
         description={subtitle || ''}
         keywords={keywords || ''}
         url={`${NEXT_PUBLIC_SITE_URL}/news/${url}`}
         authorName={authorName}
-        type="article"
+        publishedAt={publishedAt}
         image={
           image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`
         }
-      />
-
-      <Script
-        type="application/ld+json"
-        id="structured-data"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       <UptolikeScript />
