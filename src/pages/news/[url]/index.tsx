@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import Head from 'next/head';
 import Script from 'next/script';
 import Image from 'next/image';
 import clsx from 'clsx';
@@ -16,13 +15,14 @@ import { Source } from '@/components/post-sources';
 import { YandexAdBlock } from '@/components/shared/YandexAdBlock';
 import { UptolikeScript, UptolikeButtons } from '@/components/shared/social';
 import { Comments } from '@/components/comments';
+import { MetaTags } from '@/components/seo';
 
 import styles from './Post.module.scss';
 import 'react-medium-image-zoom/dist/styles.css';
 
 const LastNews = dynamic(() => import('@/components/last-news'), {
   loading: () => <p>Загрузка последних новостей...</p>,
-  ssr: false, // Указывает, что компонент должен рендериться только на клиенте
+  ssr: false,
 });
 
 const NEXT_PUBLIC_SITE_URL =
@@ -56,7 +56,6 @@ const Post: React.FC<PostProps> = ({ post }) => {
     }
   }, [id]);
 
-  //подключение зума для изображений в контенте
   useEffect(() => {
     const images = document.querySelectorAll<HTMLImageElement>(
       `.${styles.postContentWrapper} img`
@@ -88,7 +87,6 @@ const Post: React.FC<PostProps> = ({ post }) => {
       );
 
       img.parentNode?.replaceChild(zoomWrapper, img);
-
       const root = createRoot(zoomWrapper);
       root.render(zoomComponent);
     });
@@ -99,7 +97,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
     '@type': 'NewsArticle',
     headline: title,
     image: image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,
-    url: `${process.env.NEXT_PUBLIC_SITE_URL}/news/${url}`,
+    url: `${NEXT_PUBLIC_SITE_URL}/news/${url}`,
     datePublished: publishedAt,
     dateModified: publishedAt,
     author: {
@@ -108,8 +106,8 @@ const Post: React.FC<PostProps> = ({ post }) => {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Техпульс',
-      url: `${NEXT_PUBLIC_SITE_URL}`,
+      name: 'ТехПульс',
+      url: NEXT_PUBLIC_SITE_URL,
       logo: {
         '@type': 'ImageObject',
         url: `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,
@@ -124,38 +122,17 @@ const Post: React.FC<PostProps> = ({ post }) => {
 
   return (
     <>
-      <Head>
-        <title>{`${title} | Tech Pulse`}</title>
-        <meta name="description" content={subtitle || ''} />
-        <meta name="keywords" content={keywords || ''} />
-        {authorName && <meta name="author" content={authorName} />}
-
-        <meta property="og:title" content={`${title} | Tech Pulse`} />
-        <meta property="og:description" content={subtitle || ''} />
-        <meta property="og:type" content="article" />
-        <meta
-          property="og:url"
-          content={`${NEXT_PUBLIC_SITE_URL}/news/${url}`}
-        />
-        <meta
-          property="og:image"
-          content={
-            image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`
-          }
-        />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${title} | Tech Pulse`} />
-        <meta name="twitter:description" content={subtitle || ''} />
-        <meta
-          name="twitter:image"
-          content={
-            image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`
-          }
-        />
-        <meta name="twitter:site" content="@TechPulse" />
-        <meta name="twitter:creator" content="@TechPulse" />
-      </Head>
+      <MetaTags
+        title={`${title} | ТехПульс`}
+        description={subtitle || ''}
+        keywords={keywords || ''}
+        url={`${NEXT_PUBLIC_SITE_URL}/news/${url}`}
+        authorName={authorName}
+        type="article"
+        image={
+          image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`
+        }
+      />
 
       <Script
         type="application/ld+json"
@@ -163,7 +140,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <UptolikeScript key={id} />
+      <UptolikeScript />
 
       <article className={styles.post}>
         <div className="content-container">
@@ -192,17 +169,15 @@ const Post: React.FC<PostProps> = ({ post }) => {
         <footer className={clsx(styles.postFooter, 'content-container')}>
           <div className={styles.social}>
             <span>Поделится в соцсетях:</span>
-            <UptolikeButtons />
+            <UptolikeButtons key={id} />
           </div>
 
           <ul className={styles.tags}>
-            {tags.map((tag) => {
-              return (
-                <li key={tag} className={styles.tag}>
-                  <Tag tag={tag} />
-                </li>
-              );
-            })}
+            {tags.map((tag) => (
+              <li key={tag} className={styles.tag}>
+                <Tag tag={tag} />
+              </li>
+            ))}
           </ul>
           <div className={styles.sources}>
             <span>Источники:</span>
