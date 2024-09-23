@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './AboutPage.module.scss';
 import Head from 'next/head';
 
+import styles from './AboutPage.module.scss';
 
 const AboutPage: React.FC = () => {
   return (
@@ -55,8 +55,7 @@ const AboutPage: React.FC = () => {
               <p>
                 Если у вас есть вопросы, предложения или вы хотите сотрудничать
                 с нами, напишите нам на email:{' '}
-                <a href="mailto:support@techpulse.com">support@techpulse.com</a>
-                .
+                <a href="mailto:info@tehpulse.ru">info@tehpulse.ru</a>.
               </p>
             </section>
           </div>
