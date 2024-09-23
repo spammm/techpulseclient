@@ -1,28 +1,16 @@
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import styles from '../styles/404.module.scss';
 
 const Custom404: React.FC = () => {
-  const [styles, setStyles] = useState<any>(null);
-
-  useEffect(() => {
-    const loadStyles = async () => {
-      const loadedStyles = await import('../styles/404.module.scss');
-      setStyles(loadedStyles);
-    };
-    loadStyles();
-  }, []);
-
-  if (!styles) return null;
-
   return (
     <div className={styles.container}>
       <div className={styles.row}>
-        <div className={`${styles.four0four} col-md-4 col-sm-12`}>
+        <div className={`${styles.four0four}`}>
           <span className={styles.off}>4</span>
           <span className={styles.flicker2}>0</span>
           <span className={styles.flicker3}>4</span>
         </div>
-        <div className={`${styles.notFound} col-lg-2 col-md-12`}>
+        <div className={`${styles.notFound}`}>
           <span className={styles.flicker4}>С</span>
           <span className={styles.off}>т</span>
           <span>раница&nbsp;</span>
