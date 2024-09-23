@@ -13,7 +13,7 @@ import { getPostByUrl, incrementViewCount } from '@/api/postsApi';
 import { IPost } from '@/types/post';
 import { Tag } from '@/components/shared/Tag';
 import { Source } from '@/components/post-sources';
-import YandexAdBlock from '@/components/web-tools/YandexAdBlock';
+import { YandexAdBlock } from '@/components/shared/YandexAdBlock';
 import { UptolikeScript, UptolikeButtons } from '@/components/shared/social';
 import { Comments } from '@/components/comments';
 
@@ -186,7 +186,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
           <div className={styles.postContentWrapper}>
             <div dangerouslySetInnerHTML={{ __html: content }} />
           </div>
-          <YandexAdBlock blockId={blockId} />
+          <YandexAdBlock blockId={blockId} key={id} />
         </section>
 
         <footer className={clsx(styles.postFooter, 'content-container')}>

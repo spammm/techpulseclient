@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { IPost } from '@/types/post';
 import { NewsItem } from './NewsItem';
-import YandexAdBlock from '../web-tools/YandexAdBlock';
+import { YandexAdBlock } from '../shared/YandexAdBlock';
 
 import styles from './NewsList.module.scss';
 
@@ -33,7 +33,7 @@ export const NewsList: React.FC<NewsListProps> = ({ newsData }) => {
       <div className={styles.newsList}>
         {newsData.map((news, i) => (
           <React.Fragment key={news.id}>
-            {i === 3 && <YandexAdBlock blockId={blockId} />}
+            {i === 3 && <YandexAdBlock blockId={blockId} key={news.url} />}
             <NewsItem news={news} />
           </React.Fragment>
         ))}

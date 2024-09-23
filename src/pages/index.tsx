@@ -3,7 +3,7 @@ import { HomeSEO } from '@/components/seo';
 import { Hero } from '@/components/hero';
 import { Button } from '@/components/shared/Button';
 import { LastNews } from '@/components/last-news';
-import YandexAdBlock from '@/components/web-tools/YandexAdBlock';
+import { YandexAdBlock } from '@/components/shared/YandexAdBlock';
 
 export default function Home() {
   const ButtonGotoNews = (
