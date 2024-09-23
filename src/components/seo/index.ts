@@ -1,0 +1,1 @@
+export { GlobalSEO } from './GlobalSEO';

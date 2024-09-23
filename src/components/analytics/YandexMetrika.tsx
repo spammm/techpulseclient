@@ -33,10 +33,12 @@ export const YandexMetrika: React.FC = () => {
           <img
             src={`https://mc.yandex.ru/watch/${yandexMetrikaId}`}
             style={{ position: 'absolute', left: '-9999px' }}
-            alt=""
+            alt="YM"
           />
         </div>
       </noscript>
     </>
   );
 };
+
+export default YandexMetrika;

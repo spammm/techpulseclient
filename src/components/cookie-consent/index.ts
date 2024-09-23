@@ -1,0 +1,1 @@
+export { CookieConsentWrapper } from './CookieConsentWrapper';

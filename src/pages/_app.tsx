@@ -1,89 +1,26 @@
-import { Suspense } from 'react';
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { Montserrat } from 'next/font/google';
-import { SessionProvider } from 'next-auth/react';
 import { Layout } from '@/components/layout';
-import { GoogleTagManager } from '@next/third-parties/google';
-import YandexRTB from '@/components/web-tools/YandexRTB';
-import { YandexMetrika } from '@/components/web-tools/YandexMetrika';
-import CookieConsent from '@/components/сookie-сonsent';
+import { SessionProvider } from 'next-auth/react';
+import { Analytics } from '@/components/analytics';
+import { GlobalSEO } from '@/components/seo';
+import { CookieConsentWrapper } from '@/components/cookie-consent';
+import { montserrat } from '@/components/fonts';
 
 import '@/styles/reset.css';
 import '@/styles/globals.css';
-
-const montserrat = Montserrat({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['400', '500', '600', '700'],
-});
-
-const NEXT_PUBLIC_SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
-  const router = useRouter();
-  const canonicalUrl = `${NEXT_PUBLIC_SITE_URL}${router.asPath}`;
-  const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG;
-
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Поиск на TechPulse',
-    url: NEXT_PUBLIC_SITE_URL,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${NEXT_PUBLIC_SITE_URL}/search?q={search_term_string}`,
-      },
-      'query-input': {
-        '@type': 'PropertyValueSpecification',
-        valueRequired: true,
-        valueName: 'search_term_string',
-      },
-    },
-  };
-
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          title="RSS"
-          href={`${NEXT_PUBLIC_SITE_URL}/rss.xml`}
-        />
-        <meta
-          name="yandex-verification"
-          content={`${process.env.NEXT_PUBLIC_YANDEX_VERIFICATION}`}
-        />
-        <meta
-          name="google-site-verification"
-          content={`${process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION}`}
-        />
-        <link rel="canonical" href={canonicalUrl} />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </Head>
-
-      {googleTagId && <GoogleTagManager gtmId={googleTagId} />}
-      <YandexMetrika />
+      <GlobalSEO />
       <SessionProvider session={session}>
         <Layout className={montserrat.className}>
           <Component {...pageProps} />
-
-          <YandexRTB />
-          <Suspense fallback={null}>
-            <CookieConsent />
-          </Suspense>
+          <Analytics />
+          <CookieConsentWrapper />
         </Layout>
       </SessionProvider>
     </>

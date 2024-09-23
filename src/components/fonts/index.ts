@@ -1,0 +1,1 @@
+export { montserrat } from './Montserrat';
