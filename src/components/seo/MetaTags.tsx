@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-interface SearchPageSEOProps {
+interface MetaTagsProps {
   title: string;
   description: string;
   keywords?: string;
@@ -8,7 +8,7 @@ interface SearchPageSEOProps {
   image?: string;
 }
 
-export const SearchPageSEO: React.FC<SearchPageSEOProps> = ({
+export const MetaTags: React.FC<MetaTagsProps> = ({
   title,
   description,
   keywords,
@@ -34,4 +34,4 @@ export const SearchPageSEO: React.FC<SearchPageSEOProps> = ({
   );
 };
 
-export default SearchPageSEO;
+export default MetaTags;

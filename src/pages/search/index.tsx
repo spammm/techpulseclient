@@ -6,7 +6,7 @@ import { getPublishedPosts } from '@/api/postsApi';
 import { IPost } from '@/types/post';
 import { Pagination } from '@/components/pagination';
 import { SearchBar } from '@/components/SearchBar';
-import { SearchPageSEO } from '@/components/seo';
+import { MetaTags } from '@/components/seo';
 
 import styles from '../../styles/NewsPage.module.scss';
 
@@ -73,7 +73,7 @@ const SearchPage: React.FC = () => {
 
   return (
     <>
-      <SearchPageSEO
+      <MetaTags
         title={pageTitle}
         description={pageDescription}
         keywords="Технические новости, поиск статей, новинки технологий, последние разработки"

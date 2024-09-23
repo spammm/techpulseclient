@@ -1,23 +1,26 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import { NewsList } from '@/components/news';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { getPublishedPosts } from '../../api/postsApi';
 import { IPost } from '@/types/post';
 import { Pagination } from '@/components/pagination';
 import { Tag } from '@/components/shared/Tag';
+import { MetaTags } from '@/components/seo';
+
 import styles from '../../styles/NewsPage.module.scss';
 
 const NEXT_PUBLIC_SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 const NewsPage: React.FC = () => {
+  const router = useRouter();
+  const { tags } = router.query;
   const [posts, setPosts] = useState<IPost[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
-  const router = useRouter();
-  const { tags } = router.query;
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const tagsArray = useMemo(() => {
     if (typeof tags === 'string') {
@@ -28,15 +31,24 @@ const NewsPage: React.FC = () => {
     return [];
   }, [tags]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
+    setLoading(true);
+    setErrorMessage(null);
+    try {
       const { posts, totalPages } = await getPublishedPosts(page, tagsArray);
       setPosts(posts);
       setTotalPages(totalPages);
-    };
-
-    fetchPosts();
+    } catch (error) {
+      setErrorMessage('Ошибка загрузки статей. Попробуйте позже.');
+      console.log('Ошибка загрузки статей:', error);
+    } finally {
+      setLoading(false);
+    }
   }, [page, tagsArray]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
 
   const pageTitle =
     tagsArray.length > 0
@@ -47,33 +59,14 @@ const NewsPage: React.FC = () => {
 
   return (
     <>
-      <Head>
-        <title>{`${pageTitle} | TechPulse`}</title>
-        <meta name="description" content={pageDescription} />
-        <meta
-          name="keywords"
-          content="Самые последние технические новости, новинки технологий, что последнее изобрели в мире, последние гаджеты"
-        />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content={`${NEXT_PUBLIC_SITE_URL}${router.asPath}`}
-        />
-        <meta
-          property="og:image"
-          content={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
-        />
-        <meta property="og:site_name" content="TechPulse" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDescription} />
-        <meta
-          name="twitter:image"
-          content={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
-        />
-      </Head>
+      <MetaTags
+        title={pageTitle}
+        description={pageDescription}
+        keywords="Самые последние технические новости, новинки технологий, что последнее изобрели в мире, последние гаджеты"
+        url={`${NEXT_PUBLIC_SITE_URL}${router.asPath}`}
+        image={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
+      />
+
       <div className={styles.newsPage}>
         <div className="content-container">
           <Breadcrumbs
@@ -90,13 +83,22 @@ const NewsPage: React.FC = () => {
               )
             }
           />
-          <NewsList newsData={posts} />
-          {totalPages > 1 && (
-            <Pagination
-              currentPage={page}
-              totalPages={totalPages}
-              onPageChange={setPage}
-            />
+          {loading ? (
+            <p>Загрузка...</p>
+          ) : (
+            <>
+              {errorMessage && (
+                <p className={styles.errorMessage}>{errorMessage}</p>
+              )}
+              <NewsList newsData={posts} />
+              {totalPages > 1 && (
+                <Pagination
+                  currentPage={page}
+                  totalPages={totalPages}
+                  onPageChange={setPage}
+                />
+              )}
+            </>
           )}
         </div>
       </div>
