@@ -13,47 +13,51 @@ const ConfirmEmailPage = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [disableResendButton, setDisableResendButton] =
     useState<boolean>(false);
-  const [resendStatus, setResendStatus] = useState<string | null>(null); // Для отображения сообщения о повторной отправке
+  const [resendStatus, setResendStatus] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (!router.isReady) return; // Ждем, пока маршрутизатор будет готов
+    const confirmEmailToken = async () => {
+      if (!router.isReady) return;
 
-    const { token } = router.query;
-    if (token) {
-      setDisableResendButton(true);
-      confirmEmail(token as string)
-        .then(() => setStatus('success'))
-        .catch((error) => {
-          if (error.message === 'TokenExpiredError') {
-            setStatus('expired');
-            setEmail(error.email); // Сохраняем email для повторной отправки
-          } else {
-            setStatus('error');
-            setErrorMessage(
-              error.message || 'Произошла ошибка при подтверждении.'
-            );
-          }
-        })
-        .finally(() => {
+      const { token } = router.query;
+      if (token) {
+        setDisableResendButton(true);
+        try {
+          await confirmEmail(token as string);
+          setStatus('success');
+        } catch (error) {
+          handleEmailConfirmationError(error);
+        } finally {
           setDisableResendButton(false);
-        });
-    }
+        }
+      }
+    };
+
+    confirmEmailToken();
   }, [router.isReady, router.query]);
 
-  const handleResendConfirmation = () => {
+  const handleEmailConfirmationError = (error: any) => {
+    if (error.message === 'TokenExpiredError') {
+      setStatus('expired');
+      setEmail(error.email); // Сохраняем email для повторной отправки
+    } else {
+      setStatus('error');
+      setErrorMessage(error.message || 'Произошла ошибка при подтверждении.');
+    }
+  };
+
+  const handleResendConfirmation = async () => {
     if (email) {
       setDisableResendButton(true);
-      resendConfirmationEmail(email)
-        .then(() => {
-          setResendStatus('Повторное письмо отправлено. Проверьте вашу почту.');
-        })
-        .catch(() => {
-          setResendStatus('Ошибка при повторной отправке письма.');
-        })
-        .finally(() => {
-          setDisableResendButton(false);
-        });
+      try {
+        await resendConfirmationEmail(email);
+        setResendStatus('Повторное письмо отправлено. Проверьте вашу почту.');
+      } catch {
+        setResendStatus('Ошибка при повторной отправке письма.');
+      } finally {
+        setDisableResendButton(false);
+      }
     }
   };
 
