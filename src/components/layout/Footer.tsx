@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
       <div className={clsx(styles.footer__content, 'content-container')}>
         <p>© {currentYear} TechPulse</p>
         <p>
-          Contact us: <a href="mailto:info@techpulse.com">info@techpulse.com</a>
+          Contact us: <a href="mailto:info@tehpulse.ru">info@tehpulse.ru</a>
         </p>
         <div className={styles.footer__socials}>
           <Link
