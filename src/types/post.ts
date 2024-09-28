@@ -1,3 +1,5 @@
+import { IPostImage } from './image';
+
 export interface IPost {
   id: number;
   url: string;
@@ -6,14 +8,7 @@ export interface IPost {
   subtitle: string;
   content: string;
   tags: string[];
-  image: {
-    src: string;
-    alt: string;
-    source?: string;
-    sourceUrl?: string;
-    width?: number;
-    hight?: number;
-  };
+  image: IPostImage;
   imageLinks: { src: string; alt: string }[];
   published: boolean;
   createdAt: string;

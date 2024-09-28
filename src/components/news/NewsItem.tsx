@@ -67,7 +67,7 @@ export const NewsItem: React.FC<NewsItemProps> = (props) => {
               className={styles.image}
               loading="lazy"
               width={image?.width || 640}
-              height={image?.hight || 480}
+              height={image?.height || 480}
               quality={70}
             />
           )}
