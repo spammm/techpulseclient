@@ -94,7 +94,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
   return (
     <>
       <PostPageSEO
-        title={`${title} | ТехПульс`}
+        title={title}
         description={subtitle || ''}
         keywords={keywords || ''}
         url={`${NEXT_PUBLIC_SITE_URL}/news/${url}`}
