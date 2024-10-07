@@ -13,20 +13,27 @@ export const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const getPages = (): (number | string)[] => {
     const pages: (number | string)[] = [];
-    if (totalPages <= 1) return pages;
+    const totalPageNumbers = 5;
 
-    if (currentPage > 3) {
-      pages.push(1, 2, 3, '...');
-    }
+    if (totalPages <= totalPageNumbers) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      const leftBound = Math.max(1, currentPage - 2);
+      const rightBound = Math.min(totalPages, currentPage + 2);
 
-    if (currentPage > 1 && currentPage <= totalPages) {
-      if (currentPage > 3) pages.push(currentPage - 1);
-      pages.push(currentPage);
-      if (currentPage < totalPages - 2) pages.push(currentPage + 1);
-    }
+      if (leftBound > 1) {
+        pages.push(1, '...');
+      }
 
-    if (currentPage < totalPages - 2) {
-      pages.push('...', totalPages - 2, totalPages - 1, totalPages);
+      for (let i = leftBound; i <= rightBound; i++) {
+        pages.push(i);
+      }
+
+      if (rightBound < totalPages) {
+        pages.push('...', totalPages);
+      }
     }
 
     return pages;

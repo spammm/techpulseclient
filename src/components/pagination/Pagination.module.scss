@@ -2,11 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   margin-top: 20px;
 
   .pageButton {
-    margin: 0 5px;
+    margin: 5px;
     padding: 10px 15px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 16px;
     background-color: #f0f0f0;
     border: 1px solid #ddd;
     cursor: pointer;
@@ -29,20 +33,24 @@
   }
 
   .ellipsis {
-    margin: 0 5px;
+    margin: 5px;
     padding: 10px 15px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 16px;
     color: #999;
   }
 }
 
 @media (max-width: 600px) {
-  .pagination {
-    flex-wrap: wrap;
-  }
+  // .pagination {
+  //   flex-wrap: wrap;
+  // }
 
   .pageButton,
   .ellipsis {
-    padding: 8px 12px;
     margin: 5px;
+    padding: 10px;
+    font-size: 14px;
   }
 }
