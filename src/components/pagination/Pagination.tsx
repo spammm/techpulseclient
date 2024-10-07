@@ -40,7 +40,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         onClick={() => onPageChange(currentPage - 1)}
         className={styles.pageButton}
       >
-        Previous
+        Предыдущая
       </button>
       {getPages().map((page, index) =>
         typeof page === 'number' ? (
@@ -66,7 +66,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         onClick={() => onPageChange(currentPage + 1)}
         className={styles.pageButton}
       >
-        Next
+        Следующая
       </button>
     </nav>
   );
