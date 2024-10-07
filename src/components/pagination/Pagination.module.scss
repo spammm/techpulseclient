@@ -43,14 +43,28 @@
 }
 
 @media (max-width: 600px) {
-  // .pagination {
-  //   flex-wrap: wrap;
-  // }
+  .prevNextButton {
+    position: relative;
+    text-indent: -9999px;
+    padding: 0;
+    width: 44px;
+    height: 44px;
 
-  .pageButton,
-  .ellipsis {
-    margin: 5px;
-    padding: 10px;
-    font-size: 14px;
+    &:before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      text-indent: 0;
+    }
+  }
+
+  .prevNextButton:first-of-type:before {
+    content: '<';
+  }
+
+  .prevNextButton:last-of-type:before {
+    content: '>';
   }
 }

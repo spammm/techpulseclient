@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import styles from './Pagination.module.scss';
 
 interface PaginationProps {
@@ -45,7 +46,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         aria-label="Предыдущая страница"
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
-        className={styles.pageButton}
+        className={clsx(styles.pageButton, styles.prevNextButton)}
       >
         Предыдущая
       </button>
@@ -71,7 +72,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         aria-label="Следующая страница"
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
-        className={styles.pageButton}
+        className={clsx(styles.pageButton, styles.prevNextButton)}
       >
         Следующая
       </button>
