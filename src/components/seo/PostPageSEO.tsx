@@ -24,7 +24,7 @@ export const PostPageSEO: React.FC<PostPageSEOProps> = ({
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: title,
-    image: image || '/android-chrome-192x192.png',
+    image: image || '/png/logo-color.png',
     url: url,
     datePublished: publishedAt,
     dateModified: publishedAt,
@@ -38,7 +38,7 @@ export const PostPageSEO: React.FC<PostPageSEOProps> = ({
       url: process.env.NEXT_PUBLIC_SITE_URL,
       logo: {
         '@type': 'ImageObject',
-        url: image || '/android-chrome-192x192.png',
+        url: image || '/png/logo-color.png',
       },
     },
     description: description,
@@ -57,7 +57,7 @@ export const PostPageSEO: React.FC<PostPageSEOProps> = ({
         url={url}
         authorName={authorName}
         type="article"
-        image={image || '/android-chrome-192x192.png'}
+        image={image || '/png/logo-color.png'}
       />
       <Script
         type="application/ld+json"

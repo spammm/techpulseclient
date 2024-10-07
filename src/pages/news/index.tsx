@@ -64,7 +64,7 @@ const NewsPage: React.FC = () => {
         description={pageDescription}
         keywords="Самые последние технические новости, новинки технологий, что последнее изобрели в мире, последние гаджеты"
         url={`${NEXT_PUBLIC_SITE_URL}${router.asPath}`}
-        image={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
+        image={`${NEXT_PUBLIC_SITE_URL}/png/logo-color.png`}
       />
 
       <div className={styles.newsPage}>

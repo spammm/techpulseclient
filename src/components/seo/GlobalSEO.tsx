@@ -12,7 +12,7 @@ export const GlobalSEO: React.FC = () => {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Поиск на TechPulse',
+    name: 'Поиск на ТехПульс',
     url: NEXT_PUBLIC_SITE_URL,
     potentialAction: {
       '@type': 'SearchAction',

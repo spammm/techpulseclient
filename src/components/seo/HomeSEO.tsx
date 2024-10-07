@@ -1,4 +1,4 @@
-import { MetaTags } from '@/components/seo'; // Импортируем компонент MetaTags
+import { MetaTags } from '@/components/seo';
 
 export const HomeSEO: React.FC = () => {
   const NEXT_PUBLIC_SITE_URL =
@@ -10,7 +10,7 @@ export const HomeSEO: React.FC = () => {
       description="Ваш источник последних технических новостей и будущих разработок"
       keywords="технологии, новости, разработки, гаджеты, IT, новости технологий, последние технологии, самые новые технологии"
       url={NEXT_PUBLIC_SITE_URL}
-      image={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
+      image={`${NEXT_PUBLIC_SITE_URL}/png/logo-color.png`}
       type="website"
     />
   );

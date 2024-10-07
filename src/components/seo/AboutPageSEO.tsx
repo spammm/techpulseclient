@@ -9,7 +9,7 @@ export const AboutPageSEO: React.FC = () => (
       title="О нас | ТехПульс"
       description="Узнайте больше о команде ТехПульс и нашей миссии."
       url={`${NEXT_PUBLIC_SITE_URL}/about`}
-      image={`${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`}
+      image={`${NEXT_PUBLIC_SITE_URL}/png/logo-color.png`}
       type="website"
     />
     <script type="application/ld+json">
@@ -20,7 +20,7 @@ export const AboutPageSEO: React.FC = () => (
         url: NEXT_PUBLIC_SITE_URL,
         logo: {
           '@type': 'ImageObject',
-          url: `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,
+          url: `${NEXT_PUBLIC_SITE_URL}/png/logo-color.png`,
         },
         contactPoint: {
           '@type': 'ContactPoint',

@@ -100,9 +100,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         url={`${NEXT_PUBLIC_SITE_URL}/news/${url}`}
         authorName={authorName}
         publishedAt={publishedAt}
-        image={
-          image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`
-        }
+        image={image?.src || `${NEXT_PUBLIC_SITE_URL}/png/logo-color.png`}
       />
 
       <UptolikeScript />

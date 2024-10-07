@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
           title="Переход на главную страницу"
         >
           <Image
-            src="/img/logo_white.svg"
+            src="/svg/logo-icon-only.svg"
             width={28}
             height={28}
             alt="Логотип TechPulse"
