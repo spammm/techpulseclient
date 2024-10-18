@@ -33,18 +33,18 @@ async function generateSitemap(): Promise<string> {
 
   const staticPages: SitemapEntry[] = [
     {
-      loc: `${process.env.NEXT_PUBLIC_SITE_URL}/`,
-      changefreq: 'monthly',
+      loc: `${process.env.NEXT_PUBLIC_SITE_URL}`,
+      changefreq: 'hourly',
       priority: '1.0',
     },
     {
       loc: `${process.env.NEXT_PUBLIC_SITE_URL}/about`,
-      changefreq: 'monthly',
+      changefreq: 'yearly',
       priority: '0.8',
     },
     {
       loc: `${process.env.NEXT_PUBLIC_SITE_URL}/news`,
-      changefreq: 'weekly',
+      changefreq: 'hourly',
       priority: '0.9',
     },
     {
