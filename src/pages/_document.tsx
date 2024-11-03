@@ -56,7 +56,7 @@ export default function Document() {
         />
         <link
           rel="icon"
-          href="/tehpulse-favicon-color.svg"
+          href={`${NEXT_PUBLIC_SITE_URL}/tehpulse-favicon-color.svg`}
           type="image/svg+xml"
         />
         <meta name="robots" content="index, follow" />
