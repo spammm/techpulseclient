@@ -18,6 +18,7 @@ import { PostPageSEO } from '@/components/seo';
 
 import styles from './Post.module.scss';
 import 'react-medium-image-zoom/dist/styles.css';
+import routes from '@/config/routes';
 
 const LastNews = dynamic(() => import('@/components/last-news'), {
   loading: () => <p>Загрузка последних новостей...</p>,
@@ -97,7 +98,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
         title={title}
         description={subtitle || ''}
         keywords={keywords || ''}
-        url={`${NEXT_PUBLIC_SITE_URL}/news/${url}`}
+        url={`${NEXT_PUBLIC_SITE_URL}${routes.news}/${url}`}
         authorName={authorName}
         publishedAt={publishedAt}
         image={image?.src || `${NEXT_PUBLIC_SITE_URL}/png/logo-color.png`}

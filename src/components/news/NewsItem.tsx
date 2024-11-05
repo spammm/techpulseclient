@@ -4,8 +4,8 @@ import Head from 'next/head';
 import { formatDistanceToNow } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { Tag } from '../shared/Tag';
-import { IPost } from '@/types/post';
-
+import type { IPost } from '@/types/post';
+import routes from '@/config/routes';
 import styles from './NewsItem.module.scss';
 
 const NEXT_PUBLIC_SITE_URL =
@@ -29,7 +29,7 @@ export const NewsItem: React.FC<NewsItemProps> = (props) => {
     '@type': 'NewsArticle',
     headline: title,
     image: image?.src || `${NEXT_PUBLIC_SITE_URL}/android-chrome-192x192.png`,
-    url: `${process.env.NEXT_PUBLIC_SITE_URL}/news/${url}`,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL}${routes.news}/${url}`,
     datePublished: new Date(publishedAt).toISOString(),
     author: {
       '@type': 'Person',
@@ -46,7 +46,7 @@ export const NewsItem: React.FC<NewsItemProps> = (props) => {
     description: subtitle,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${process.env.NEXT_PUBLIC_SITE_URL}/news/${url}`,
+      '@id': `${process.env.NEXT_PUBLIC_SITE_URL}${routes.news}/${url}`,
     },
   };
 
@@ -75,7 +75,7 @@ export const NewsItem: React.FC<NewsItemProps> = (props) => {
         <div className={styles.content}>
           <span className={styles.timeAgo}>⌚ {timeAgo}</span>
           <h2 className={styles.title}>
-            <Link href={`/news/${url}`}>{title}</Link>
+            <Link href={`${routes.news}/${url}`}>{title}</Link>
           </h2>
           <p className={styles.subtitle}>{subtitle}</p>
           <ul className={styles.tags}>

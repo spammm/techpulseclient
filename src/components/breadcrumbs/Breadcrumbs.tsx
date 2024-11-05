@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
-
+import routes from '@/config/routes';
 import styles from './Breadcrumbs.module.scss';
 
 interface BreadcrumbsProps {
@@ -16,7 +16,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ lastText }) => {
           itemScope
           itemType="https://schema.org/ListItem"
         >
-          <Link href="/" itemProp="item">
+          <Link href={routes.home} itemProp="item">
             <span itemProp="name">Главная</span>
           </Link>
           <meta itemProp="position" content="1" />
@@ -26,7 +26,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ lastText }) => {
           itemScope
           itemType="https://schema.org/ListItem"
         >
-          <Link href="/news" itemProp="item">
+          <Link href={routes.news} itemProp="item">
             <span itemProp="name">Новости</span>
           </Link>
           <meta itemProp="position" content="2" />

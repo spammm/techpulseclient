@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from './Tag.module.scss';
+import routes from '@/config/routes';
 
 interface TagProps {
   tag: string;
@@ -14,7 +15,7 @@ export const Tag: React.FC<TagProps> = ({ tag, type = 'linked' }) => {
   return (
     <Link
       href={{
-        pathname: '/news',
+        pathname: routes.news,
         query: { tags: [tag] },
       }}
       className={styles.tag}

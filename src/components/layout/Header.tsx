@@ -4,7 +4,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import { Button } from '../shared/Button';
 import { AuthButton } from '../auth-button/AuthButton';
-
+import routes from '@/config/routes';
 import styles from './Header.module.scss';
 
 export const Header: React.FC = () => {
@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
       >
         <Link
           className={styles.logo}
-          href="/"
+          href={routes.home}
           title="Переход на главную страницу"
         >
           <Image
@@ -52,7 +52,7 @@ export const Header: React.FC = () => {
         >
           <li role="none">
             <Link
-              href="/news"
+              href={routes.news}
               className={styles.header__link}
               role="menuitem"
               itemProp="url"
@@ -62,7 +62,7 @@ export const Header: React.FC = () => {
           </li>
           <li role="none">
             <Link
-              href="/search"
+              href={routes.search}
               className={styles.header__link}
               role="menuitem"
               itemProp="url"
@@ -72,7 +72,7 @@ export const Header: React.FC = () => {
           </li>
           <li role="none">
             <Link
-              href="/about"
+              href={routes.about}
               className={styles.header__link}
               role="menuitem"
               itemProp="url"

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { IPost } from '@/types/post';
 import { NewsItem } from './NewsItem';
 import { YandexAdBlock } from '../shared/YandexAdBlock';
-
+import routes from '@/config/routes';
 import styles from './NewsList.module.scss';
 
 const blockId = process.env.NEXT_PUBLIC_YANDEX_BLOCK_ID2 || '';
@@ -19,7 +19,7 @@ export const NewsList: React.FC<NewsListProps> = ({ newsData }) => {
     itemListElement: newsData.map((news, index) => ({
       '@type': 'ListItem',
       position: index + 1,
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/news/${news.url}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}${routes.news}/${news.url}`,
     })),
   };
   return (

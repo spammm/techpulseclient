@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/shared/Button';
 import { Input } from '@/components/shared/Input';
-
+import routes from '@/config/routes';
 import styles from './SearchBar.module.scss';
 
 const NEXT_PUBLIC_SITE_URL =
@@ -40,7 +40,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       role="search"
     >
       <span itemProp="target" style={{ display: 'none' }}>
-        {`${NEXT_PUBLIC_SITE_URL}/search?q={search_term_string}`}
+        {`${NEXT_PUBLIC_SITE_URL}${routes.search}?q={search_term_string}`}
       </span>
       <meta itemProp="query-input" content="required name=search_term_string" />
       <Input
