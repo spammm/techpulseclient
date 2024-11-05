@@ -3,7 +3,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import clsx from 'clsx';
 import { ProfileModal } from '../profile-modal';
 import { updateClientProfile } from '@/api/clientApi';
-import { IUser } from '@/types/user';
+import type { IUser } from '@/types/user';
 
 import styles from './AuthButton.module.scss';
 
@@ -52,52 +52,53 @@ export const AuthButton: React.FC = () => {
     }
   };
 
+  if (!session)
+    return (
+      <div className={styles.authButton}>
+        <button
+          onClick={handleSignIn}
+          className={styles.loginButton}
+          role="menuitem"
+        >
+          Войти
+        </button>
+      </div>
+    );
+
   return (
     <div className={styles.authButton}>
-      {!session ? (
-        <>
-          <button
-            onClick={handleSignIn}
-            className={styles.loginButton}
-            role="menuitem"
-          >
-            Войти
-          </button>
-        </>
-      ) : (
-        <div className={styles.profileButton}>
-          <button
-            onClick={toggleMenu}
-            className={clsx(styles.menuButton, {
-              [styles.menuOpen]: isMenuOpen,
-            })}
-            aria-expanded={isMenuOpen}
-            aria-haspopup="true"
-            aria-controls="auth-menu"
-            role="button"
-          >
-            {userName.slice(0, 10)}
-          </button>
-          {isMenuOpen && (
-            <ul className={styles.dropdownMenu} role="menu" id="auth-menu">
-              <li role="menuitem">
-                <button onClick={openProfileModal}>Профиль</button>
-              </li>
-              <li role="menuitem">
-                <button onClick={handleLogout}>Выйти</button>
-              </li>
-            </ul>
-          )}
+      <div className={styles.profileButton}>
+        <button
+          onClick={toggleMenu}
+          className={clsx(styles.menuButton, {
+            [styles.menuOpen]: isMenuOpen,
+          })}
+          aria-expanded={isMenuOpen}
+          aria-haspopup="true"
+          aria-controls="auth-menu"
+          role="button"
+        >
+          {userName.slice(0, 10)}
+        </button>
+        {isMenuOpen && (
+          <ul className={styles.dropdownMenu} role="menu" id="auth-menu">
+            <li role="menuitem">
+              <button onClick={openProfileModal}>Профиль</button>
+            </li>
+            <li role="menuitem">
+              <button onClick={handleLogout}>Выйти</button>
+            </li>
+          </ul>
+        )}
 
-          {isProfileModalOpen && (
-            <ProfileModal
-              user={session.user}
-              onClose={closeProfileModal}
-              onSave={handleSaveProfile}
-            />
-          )}
-        </div>
-      )}
+        {isProfileModalOpen && (
+          <ProfileModal
+            user={session.user}
+            onClose={closeProfileModal}
+            onSave={handleSaveProfile}
+          />
+        )}
+      </div>
     </div>
   );
 };
