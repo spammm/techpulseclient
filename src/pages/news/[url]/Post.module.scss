@@ -101,7 +101,12 @@
         align-items: center;
         justify-content: center;
         gap: 6px;
+        flex-wrap: wrap;
 
+        p {
+          margin: 0;
+          width: 100%;
+        }
         a {
           color: #6b7280;
           text-decoration: none;
