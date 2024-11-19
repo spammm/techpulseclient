@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import Image from 'next/image';
 import clsx from 'clsx';
+import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import Zoom from 'react-medium-image-zoom';
 import { Breadcrumbs } from '@/components/breadcrumbs';
@@ -29,6 +30,10 @@ const NEXT_PUBLIC_SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 const blockId = process.env.NEXT_PUBLIC_YANDEX_BLOCK_ID3 || '';
+
+interface IParams extends ParsedUrlQuery {
+  url: string;
+}
 
 interface PostProps {
   post: IPost;
@@ -162,22 +167,31 @@ const Post: React.FC<PostProps> = ({ post }) => {
   );
 };
 
-export default Post;
+export const getStaticProps: GetStaticProps<PostProps, IParams> = async (
+  context: GetStaticPropsContext<IParams>
+) => {
+  if (!context.params || !context.params.url) {
+    return {
+      notFound: true,
+    };
+  }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { url } = context.query;
-
-  context.res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=300, stale-while-revalidate=60'
-  );
+  const { url } = context.params;
 
   try {
-    const post = await getPostByUrl(url as string);
+    const post = await getPostByUrl(url);
+
+    if (!post) {
+      return {
+        notFound: true,
+      };
+    }
+
     return {
       props: {
         post,
       },
+      revalidate: 300,
     };
   } catch (error) {
     console.log('error: ', error);
@@ -186,3 +200,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 };
+
+export const getStaticPaths: GetStaticPaths<IParams> = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+};
+
+export default Post;
