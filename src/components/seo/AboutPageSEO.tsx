@@ -6,7 +6,7 @@ const NEXT_PUBLIC_SITE_URL =
 export const AboutPageSEO: React.FC = () => (
   <>
     <MetaTags
-      title="О нас | ТехПульс"
+      title="О нас"
       description="Узнайте больше о команде ТехПульс и нашей миссии."
       url={`${NEXT_PUBLIC_SITE_URL}/about`}
       image={`${NEXT_PUBLIC_SITE_URL}/png/logo-color.png`}

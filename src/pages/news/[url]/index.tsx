@@ -191,7 +191,7 @@ export const getStaticProps: GetStaticProps<PostProps, IParams> = async (
       props: {
         post,
       },
-      revalidate: 300,
+      revalidate: 3600,
     };
   } catch (error) {
     console.log('error: ', error);

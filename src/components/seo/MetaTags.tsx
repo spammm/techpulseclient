@@ -21,7 +21,7 @@ export const MetaTags: React.FC<MetaTagsProps> = ({
 }) => {
   return (
     <Head>
-      <title>{`${title} | ТехПульс`}</title>
+      <title>{`${title}`}</title>
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       {authorName && <meta name="author" content={authorName} />}
