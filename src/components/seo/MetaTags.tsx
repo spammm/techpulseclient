@@ -8,6 +8,9 @@ interface MetaTagsProps {
   url: string;
   image?: string;
   type?: 'article' | 'website';
+  publishedAt?: string;
+  modifiedAt?: string;
+  tags?: string[];
 }
 
 export const MetaTags: React.FC<MetaTagsProps> = ({
@@ -18,6 +21,9 @@ export const MetaTags: React.FC<MetaTagsProps> = ({
   url,
   image,
   type = 'website',
+  publishedAt,
+  modifiedAt,
+  tags = [],
 }) => {
   return (
     <Head>
@@ -30,6 +36,19 @@ export const MetaTags: React.FC<MetaTagsProps> = ({
       <meta property="og:type" content={type} />
       <meta property="og:url" content={url} />
       {image && <meta property="og:image" content={image} />}
+      {type === 'article' && publishedAt && (
+        <meta property="article:published_time" content={publishedAt} />
+      )}
+      {type === 'article' && modifiedAt && (
+        <meta property="article:modified_time" content={modifiedAt} />
+      )}
+      {type === 'article' && authorName && (
+        <meta property="article:author" content={authorName} />
+      )}
+      {type === 'article' &&
+        tags.map((tag) => (
+          <meta property="article:tag" content={tag} key={tag} />
+        ))}
       <meta property="og:site_name" content="ТехПульс" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />

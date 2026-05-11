@@ -12,7 +12,8 @@ export const GlobalSEO: React.FC = () => {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Поиск на ТехПульс',
+    name: 'TechPulse',
+    alternateName: 'ТехПульс',
     url: NEXT_PUBLIC_SITE_URL,
     potentialAction: {
       '@type': 'SearchAction',
@@ -32,6 +33,7 @@ export const GlobalSEO: React.FC = () => {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#f97316" />
         <link
           rel="alternate"
           type="application/rss+xml"

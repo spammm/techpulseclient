@@ -9,6 +9,8 @@ interface PostPageSEOProps {
   image?: string;
   authorName?: string;
   publishedAt: string;
+  modifiedAt?: string;
+  tags?: string[];
 }
 
 export const PostPageSEO: React.FC<PostPageSEOProps> = ({
@@ -19,29 +21,42 @@ export const PostPageSEO: React.FC<PostPageSEOProps> = ({
   image,
   authorName,
   publishedAt,
+  modifiedAt,
+  tags = [],
 }) => {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const fallbackImage = `${siteUrl}/png/logo-color.png`;
+  const articleImage = image || fallbackImage;
+  const publisherLogo = `${siteUrl}/logo-color-192x192.png`;
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: title,
-    image: image || '/png/logo-color.png',
-    url: url,
+    description,
+    image: [articleImage],
+    url,
     datePublished: publishedAt,
-    dateModified: publishedAt,
+    dateModified: modifiedAt || publishedAt,
+    inLanguage: 'ru-RU',
+    keywords: tags.length > 0 ? tags.join(', ') : keywords,
+    articleSection: tags,
     author: {
       '@type': 'Person',
-      name: authorName || 'John Doe',
+      name: authorName || 'Редакция TechPulse',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'ТехПульс',
-      url: process.env.NEXT_PUBLIC_SITE_URL,
+      name: 'TechPulse',
+      alternateName: 'ТехПульс',
+      url: siteUrl,
       logo: {
         '@type': 'ImageObject',
-        url: image || '/png/logo-color.png',
+        url: publisherLogo,
+        width: 192,
+        height: 192,
       },
     },
-    description: description,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': url,
@@ -57,7 +72,10 @@ export const PostPageSEO: React.FC<PostPageSEOProps> = ({
         url={url}
         authorName={authorName}
         type="article"
-        image={image || '/png/logo-color.png'}
+        image={articleImage}
+        publishedAt={publishedAt}
+        modifiedAt={modifiedAt || publishedAt}
+        tags={tags}
       />
       <Script
         type="application/ld+json"

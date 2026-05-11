@@ -20,26 +20,6 @@ export const Footer: React.FC = () => {
           <Link href={routes.personalDataConsent}>Согласие на обработку ПД</Link>
           <Link href={routes.cookies}>Политика cookie</Link>
         </nav>
-        <div className={styles.footer__socials}>
-          <Link
-            href="https://t.me/tekhulse"
-            target="_blank"
-            className={styles.footer__socialLink}
-            aria-label="Telegram (открывается в новом окне)"
-            rel="noopener noreferrer"
-          >
-            Telegram
-          </Link>
-          {/* <Link
-            href="https://vk.com/techpulse"
-            target="_blank"
-            className={styles.footer__socialLink}
-            aria-label="ВКонтакте (открывается в новом окне)"
-            rel="noopener noreferrer"
-          >
-            ВКонтакте
-          </Link> */}
-        </div>
       </div>
     </footer>
   );

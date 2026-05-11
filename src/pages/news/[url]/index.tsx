@@ -49,11 +49,14 @@ const Post: React.FC<PostProps> = ({ post }) => {
     keywords,
     authorName,
     publishedAt,
+    updatedAt,
     tags,
     sources,
   } = post;
   const router = useRouter();
-  const { url } = router.query;
+  const url = typeof router.query.url === 'string' ? router.query.url : post.url;
+  const publishedDate = new Date(publishedAt);
+  const publishedIso = publishedDate.toISOString();
 
   useEffect(() => {
     if (id && typeof window !== 'undefined') {
@@ -106,59 +109,93 @@ const Post: React.FC<PostProps> = ({ post }) => {
         url={`${NEXT_PUBLIC_SITE_URL}${routes.news}/${url}`}
         authorName={authorName}
         publishedAt={publishedAt}
+        modifiedAt={updatedAt || publishedAt}
         image={image?.src || `${NEXT_PUBLIC_SITE_URL}/png/logo-color.png`}
+        tags={tags}
       />
 
       <UptolikeScript />
 
-      <article className={styles.post}>
+      <article
+        className={styles.post}
+        itemScope
+        itemType="https://schema.org/NewsArticle"
+      >
         <div className="content-container">
           <Breadcrumbs lastText={title} />
         </div>
 
         <header className={clsx(styles.postHeader, 'content-container')}>
-          <h1 className={styles.postTitle}>{title}</h1>
-          <div className={styles.postSubtitle}>{subtitle}</div>
-          <time dateTime={new Date(publishedAt).toISOString()}>
-            {new Date(publishedAt).toLocaleDateString('ru-RU', {
+          <h1 className={styles.postTitle} itemProp="headline">
+            {title}
+          </h1>
+          {subtitle && (
+            <p className={styles.postSubtitle} itemProp="description">
+              {subtitle}
+            </p>
+          )}
+          <time dateTime={publishedIso} itemProp="datePublished">
+            {publishedDate.toLocaleDateString('ru-RU', {
               day: 'numeric',
               month: 'long',
               year: 'numeric',
             })}
           </time>
+          <meta itemProp="dateModified" content={new Date(updatedAt || publishedAt).toISOString()} />
+          <meta itemProp="author" content={authorName || 'Редакция TechPulse'} />
         </header>
 
-        <section className={clsx(styles.postContent, 'content-container')}>
+        <section
+          className={clsx(styles.postContent, 'content-container')}
+          aria-labelledby="post-content-title"
+        >
+          <h2 id="post-content-title" className={styles.visuallyHidden}>
+            Текст новости
+          </h2>
           <div className={styles.postContentWrapper}>
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+            <div
+              itemProp="articleBody"
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
           </div>
           <YandexAdBlock blockId={blockId} key={id} />
         </section>
 
         <footer className={clsx(styles.postFooter, 'content-container')}>
-          <div className={styles.social}>
-            <span>Поделится в соцсетях:</span>
+          <section className={styles.social} aria-labelledby="share-title">
+            <h2 id="share-title">Поделиться в соцсетях</h2>
             <UptolikeButtons key={id} />
-          </div>
+          </section>
 
-          <ul className={styles.tags}>
-            {tags.map((tag) => (
-              <li key={tag} className={styles.tag}>
-                <Tag tag={tag} />
-              </li>
-            ))}
-          </ul>
-          <div className={styles.sources}>
-            <span>Источники:</span>
-            {sources.map((source) => (
-              <Source key={source.name} source={source} />
-            ))}
-          </div>
+          {tags.length > 0 && (
+            <section className={styles.tagsSection} aria-labelledby="tags-title">
+              <h2 id="tags-title">Темы материала</h2>
+              <ul className={styles.tags}>
+                {tags.map((tag) => (
+                  <li key={tag} className={styles.tag}>
+                    <Tag tag={tag} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {sources.length > 0 && (
+            <section
+              className={styles.sources}
+              aria-labelledby="sources-title"
+            >
+              <h2 id="sources-title">Источники</h2>
+              {sources.map((source) => (
+                <Source key={source.name} source={source} />
+              ))}
+            </section>
+          )}
           <div className={styles.comments}>
             <Comments postId={id} key={id} />
           </div>
-          <section className="content-container">
-            <h3>Смотрите также последние новости с главной страницы</h3>
+          <section className="content-container" aria-labelledby="last-news-title">
+            <h2 id="last-news-title">Последние новости</h2>
             <LastNews />
           </section>
         </footer>

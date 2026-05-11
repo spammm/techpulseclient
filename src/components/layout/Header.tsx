@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
     <header className={styles.header}>
       <nav
         className={clsx(styles.header__nav, 'content-container')}
-        aria-label="Main Navigation"
+        aria-label="Основная навигация"
         itemScope
         itemType="https://schema.org/SiteNavigationElement"
       >
@@ -41,46 +41,42 @@ export const Header: React.FC = () => {
           className={styles.header__menuButton}
           aria-expanded={isMenuOpen}
           aria-controls="main-menu"
-          aria-label="Toggle Menu"
+          aria-label={isMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
         />
         <ul
           id="main-menu"
           className={clsx(styles.header__links, {
             [styles.header__links_hidden]: !isMenuOpen,
           })}
-          role="menu"
         >
-          <li role="none">
+          <li>
             <Link
               href={routes.news}
               className={styles.header__link}
-              role="menuitem"
               itemProp="url"
             >
               <span itemProp="name">Новости</span>
             </Link>
           </li>
-          <li role="none">
+          <li>
             <Link
               href={routes.search}
               className={styles.header__link}
-              role="menuitem"
               itemProp="url"
             >
               <span itemProp="name">Поиск по сайту</span>
             </Link>
           </li>
-          <li role="none">
+          <li>
             <Link
               href={routes.about}
               className={styles.header__link}
-              role="menuitem"
               itemProp="url"
             >
               <span itemProp="name">О проекте</span>
             </Link>
           </li>
-          <li role="none">
+          <li>
             <AuthButton />
           </li>
         </ul>

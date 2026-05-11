@@ -11,11 +11,12 @@ export const Source: React.FC<SourceProps> = ({ source: { name, link } }) => {
     <Link
       className={styles.source}
       href={link}
-      title={`Ссылка на источник`}
+      title={`Источник: ${name}`}
+      aria-label={`Открыть источник ${name} в новом окне`}
       target="_blank"
       rel="noopener noreferrer"
     >
-      <span></span> {name}
+      <span aria-hidden="true"></span> {name}
     </Link>
   );
 };

@@ -9,13 +9,6 @@
     margin: 0 auto;
   }
 
-  &__socials {
-    margin-top: 0.5rem;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-  }
-
   &__legal {
     margin-top: 0.75rem;
     display: flex;
@@ -37,16 +30,4 @@
     }
   }
 
-  &__socialLink {
-    color: var(--whiteblock-text-color);
-    text-decoration: none;
-    transition: color 0.3s;
-
-    &:hover,
-    &:focus {
-      color: var(--secondary-background-color-hover);
-      outline: 2px solid var(--secondary-background-color-hover);
-      outline-offset: 2px;
-    }
-  }
 }

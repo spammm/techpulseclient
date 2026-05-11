@@ -1,6 +1,12 @@
 {
   "name": "ТехПульс",
   "short_name": "ТехПульс",
+  "description": "Новости технологий, инженерии, электроники и промышленности.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#f97316",
   "icons": [
     {
       "src": "/tehpulse-favicon-color.svg",
