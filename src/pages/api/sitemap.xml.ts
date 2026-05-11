@@ -43,6 +43,26 @@ async function generateSitemap(): Promise<string> {
       priority: '0.8',
     },
     {
+      loc: `${process.env.NEXT_PUBLIC_SITE_URL}/privacy`,
+      changefreq: 'monthly',
+      priority: '0.3',
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_SITE_URL}/personal-data-consent`,
+      changefreq: 'monthly',
+      priority: '0.3',
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_SITE_URL}/user-agreement`,
+      changefreq: 'monthly',
+      priority: '0.3',
+    },
+    {
+      loc: `${process.env.NEXT_PUBLIC_SITE_URL}/cookies`,
+      changefreq: 'monthly',
+      priority: '0.3',
+    },
+    {
       loc: `${process.env.NEXT_PUBLIC_SITE_URL}/news`,
       changefreq: 'hourly',
       priority: '0.9',

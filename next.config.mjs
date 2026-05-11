@@ -1,24 +1,37 @@
+const apiServer = process.env.NEXT_PUBLIC_API_SERVER || 'http://localhost:3005';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const environment =
+  process.env.NEXT_PUBLIC_ENVIRONMENT || process.env.NEXT_PUBLIC_ENV;
+
+const apiServerHostname = new URL(apiServer).hostname;
+const siteUrlHostname = new URL(siteUrl).hostname;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  productionBrowserSourceMaps: process.env.NEXT_PUBLIC_ENVIRONMENT === 'stage',
+  productionBrowserSourceMaps: environment === 'stage',
+  env: {
+    NEXT_PUBLIC_API_SERVER: apiServer,
+    NEXT_PUBLIC_SITE_URL: siteUrl,
+    NEXT_PUBLIC_ENVIRONMENT: environment,
+  },
   images: {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: new URL(process.env.NEXT_PUBLIC_API_SERVER).hostname,
+        hostname: apiServerHostname,
       },
       {
         protocol: 'http',
-        hostname: new URL(process.env.NEXT_PUBLIC_SITE_URL).hostname,
+        hostname: siteUrlHostname,
       },
       {
         protocol: 'https',
-        hostname: new URL(process.env.NEXT_PUBLIC_API_SERVER).hostname,
+        hostname: apiServerHostname,
       },
       {
         protocol: 'https',
-        hostname: new URL(process.env.NEXT_PUBLIC_SITE_URL).hostname,
+        hostname: siteUrlHostname,
       },
     ],
   },

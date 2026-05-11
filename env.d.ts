@@ -2,6 +2,8 @@
 
 declare namespace NodeJS {
   interface ProcessEnv {
+    NEXT_PUBLIC_ENVIRONMENT: 'production' | 'stage' | 'development';
+    NEXT_PUBLIC_ENV: 'production' | 'stage' | 'development';
     NEXT_PUBLIC_API_SERVER: string;
     NEXT_PUBLIC_SITE_URL: string;
     NEXT_PUBLIC_SITEMAP_SECRET: string;

@@ -16,6 +16,27 @@
     gap: 1.5rem;
   }
 
+  &__legal {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.25rem;
+
+    a {
+      color: var(--whiteblock-text-color);
+      text-decoration: none;
+      transition: color 0.3s;
+
+      &:hover,
+      &:focus {
+        color: var(--secondary-background-color-hover);
+        outline: 2px solid var(--secondary-background-color-hover);
+        outline-offset: 2px;
+      }
+    }
+  }
+
   &__socialLink {
     color: var(--whiteblock-text-color);
     text-decoration: none;

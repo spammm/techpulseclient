@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:stage": "node --env-file=.env.stage ./node_modules/next/dist/bin/next dev",
     "build": "next build",
+    "build:stage": "node --env-file=.env.stage ./node_modules/next/dist/bin/next build",
     "start": "next start",
     "lint": "next lint"
   },

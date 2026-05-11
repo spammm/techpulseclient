@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { clientRegister } from '@/api/authApi';
 import { Input } from '@/components/shared/Input';
 import { Button } from '@/components/shared/Button';
+import routes from '@/config/routes';
 
 import styles from '@/styles/RegisterPage.module.scss';
 
@@ -16,6 +18,7 @@ const RegisterPage = () => {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isAgreementAccepted, setIsAgreementAccepted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,6 +34,9 @@ const RegisterPage = () => {
     }
     if (password.length < 6) {
       return 'Пароль должен содержать минимум 6 символов.';
+    }
+    if (!isAgreementAccepted) {
+      return 'Необходимо согласиться с пользовательским соглашением и обработкой персональных данных.';
     }
     return '';
   };
@@ -97,7 +103,25 @@ const RegisterPage = () => {
             onChange={handleChange}
             required
           />
-          <Button type="submit" disabled={isLoading}>
+          <label className={styles.agreement}>
+            <input
+              type="checkbox"
+              checked={isAgreementAccepted}
+              onChange={(e) => setIsAgreementAccepted(e.target.checked)}
+            />
+            <span>
+              Я соглашаюсь с{' '}
+              <Link href={routes.userAgreement}>
+                Пользовательским соглашением
+              </Link>{' '}
+              и{' '}
+              <Link href={routes.personalDataConsent}>
+                обработкой персональных данных
+              </Link>
+              .
+            </span>
+          </label>
+          <Button type="submit" disabled={isLoading || !isAgreementAccepted}>
             {isLoading ? 'Загрузка...' : 'Зарегистрироваться'}
           </Button>
         </form>

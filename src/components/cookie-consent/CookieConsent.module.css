@@ -20,6 +20,20 @@
 .cookieContent p {
   margin: 0;
   padding-right: 10px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.cookieLink {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
 }
 
 .acceptButton {
@@ -33,4 +47,33 @@
 
 .acceptButton:hover {
   background-color: #005bb5;
+}
+
+.rejectButton {
+  background-color: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.rejectButton:hover {
+  border-color: white;
+}
+
+@media (max-width: 768px) {
+  .cookieContent {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cookieContent p {
+    padding-right: 0;
+  }
+
+  .actions {
+    justify-content: flex-end;
+  }
 }

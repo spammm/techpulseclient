@@ -224,6 +224,7 @@ export const authOptions: NextAuthOptions = {
   },
 
   pages: {
+    signIn: '/auth/signin',
     error: '/auth/error', // Страница для показа ошибок
   },
 };

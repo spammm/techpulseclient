@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import styles from './CookieConsent.module.css';
+import {
+  getCookieConsentStatus,
+  rejectCookieConsent,
+  saveCookieConsent,
+} from './consentStorage';
 
 const CookieConsent: React.FC = () => {
   const [visible, setVisible] = useState(false);
-  const [language, setLanguage] = useState<'ru' | 'en'>('en');
 
   useEffect(() => {
-    const consent = localStorage.getItem('cookieConsent');
-    if (!consent) {
+    if (!getCookieConsentStatus()) {
       setVisible(true);
-    }
-
-    const browserLanguage = navigator.language || navigator.languages[0];
-    if (browserLanguage.startsWith('ru')) {
-      setLanguage('ru');
-    } else {
-      setLanguage('en');
     }
   }, []);
 
   const acceptCookies = () => {
-    localStorage.setItem('cookieConsent', 'true');
+    saveCookieConsent();
+    setVisible(false);
+  };
+
+  const rejectCookies = () => {
+    rejectCookieConsent();
     setVisible(false);
   };
 
@@ -29,13 +31,27 @@ const CookieConsent: React.FC = () => {
       <div className={styles.cookieConsent}>
         <div className={styles.cookieContent}>
           <p>
-            {language === 'ru'
-              ? 'Мы используем файлы cookie, чтобы обеспечить вам лучший опыт на нашем сайте.'
-              : 'We use cookies to ensure you get the best experience on our website.'}
+            Мы используем необходимые cookie для работы сайта, а с вашего
+            согласия — аналитические, рекламные и функциональные cookie.
+            Нажимая «Согласен», вы даёте согласие на обработку пользовательских
+            данных на условиях{' '}
+            <Link href="/privacy" className={styles.cookieLink}>
+              политики обработки персональных данных
+            </Link>{' '}
+            и{' '}
+            <Link href="/cookies" className={styles.cookieLink}>
+              политики cookie
+            </Link>
+            .
           </p>
-          <button className={styles.acceptButton} onClick={acceptCookies}>
-            {language === 'ru' ? 'Принять' : 'Accept'}
-          </button>
+          <div className={styles.actions}>
+            <button className={styles.rejectButton} onClick={rejectCookies}>
+              Отказаться
+            </button>
+            <button className={styles.acceptButton} onClick={acceptCookies}>
+              Согласен
+            </button>
+          </div>
         </div>
       </div>
     )
