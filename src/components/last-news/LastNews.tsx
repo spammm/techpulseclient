@@ -7,11 +7,21 @@ import { NewsList } from '../news';
 
 import styles from './LastNews.module.scss';
 
-export const LastNews: React.FC = () => {
-  const [posts, setPosts] = useState<IPost[]>([]);
+interface LastNewsProps {
+  initialPosts?: IPost[];
+}
+
+export const LastNews: React.FC<LastNewsProps> = ({ initialPosts }) => {
+  const [posts, setPosts] = useState<IPost[]>(initialPosts || []);
   const pathname = usePathname();
   const currentPostUrl = pathname ? pathname.split('/').at(-1) : null;
+
   useEffect(() => {
+    if (initialPosts) {
+      setPosts(initialPosts.filter((post) => post.url !== currentPostUrl));
+      return;
+    }
+
     let isMounted = true;
 
     const fetchPosts = async () => {
@@ -34,7 +44,7 @@ export const LastNews: React.FC = () => {
     return () => {
       isMounted = false;
     };
-  }, [currentPostUrl]);
+  }, [currentPostUrl, initialPosts]);
 
   return (
     <section id="last_news" className={styles.news}>
