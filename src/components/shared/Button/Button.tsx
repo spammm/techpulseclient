@@ -1,6 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
 import clsx from 'clsx';
-import MenuIcon from './menu-icon.svg';
 import styles from './Button.module.scss';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -19,7 +18,9 @@ export const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {children}
-      {variant === 'menu' && <MenuIcon className={styles.menuIcon} />}
+      {variant === 'menu' && (
+        <span className={styles.menuIcon} aria-hidden="true" />
+      )}
     </button>
   );
 };

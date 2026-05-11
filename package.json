@@ -4,33 +4,34 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:stage": "node --env-file=.env.stage ./node_modules/next/dist/bin/next dev",
+    "dev:stage": "node scripts/next-with-env.mjs .env.stage dev",
     "build": "next build",
-    "build:stage": "node --env-file=.env.stage ./node_modules/next/dist/bin/next build",
+    "build:stage": "node scripts/next-with-env.mjs .env.stage build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@next/third-parties": "^14.2.7",
-    "@types/next-auth": "^3.13.0",
-    "axios": "^1.7.4",
+    "@next/third-parties": "^16.2.6",
+    "axios": "^1.16.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
-    "next": "14.2.5",
-    "next-auth": "^4.24.7",
+    "next": "^16.2.6",
+    "next-auth": "^4.24.14",
     "react": "^18",
     "react-dom": "^18",
-    "react-medium-image-zoom": "^5.2.9",
-    "sharp": "^0.33.5"
+    "react-medium-image-zoom": "^5.4.5",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
-    "@svgr/webpack": "^8.1.0",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.5",
-    "sass": "^1.77.8",
-    "typescript": "^5"
+    "@types/node": "^20.19.40",
+    "@types/react": "^18.3.28",
+    "@types/react-dom": "^18.3.7",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.6",
+    "sass": "^1.99.0",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "postcss": "8.5.14"
   }
 }

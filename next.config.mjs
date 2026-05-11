@@ -8,7 +8,10 @@ const siteUrlHostname = new URL(siteUrl).hostname;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
+  poweredByHeader: false,
+  compress: false,
   productionBrowserSourceMaps: environment === 'stage',
   env: {
     NEXT_PUBLIC_API_SERVER: apiServer,
@@ -16,6 +19,7 @@ const nextConfig = {
     NEXT_PUBLIC_ENVIRONMENT: environment,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'http',
@@ -34,13 +38,6 @@ const nextConfig = {
         hostname: siteUrlHostname,
       },
     ],
-  },
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-    return config;
   },
   async rewrites() {
     return [

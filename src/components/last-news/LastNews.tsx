@@ -12,12 +12,30 @@ export const LastNews: React.FC = () => {
   const pathname = usePathname();
   const currentPostUrl = pathname ? pathname.split('/').at(-1) : null;
   useEffect(() => {
+    let isMounted = true;
+
     const fetchPosts = async () => {
-      const { posts } = await getPublishedPosts();
-      setPosts(posts.filter((post) => post.url !== currentPostUrl));
+      try {
+        const { posts } = await getPublishedPosts();
+
+        if (!isMounted) return;
+
+        setPosts(posts.filter((post) => post.url !== currentPostUrl));
+      } catch (error) {
+        if (!isMounted) return;
+
+        setPosts([]);
+        console.log('Ошибка загрузки последних новостей:', error);
+      }
     };
+
     fetchPosts();
+
+    return () => {
+      isMounted = false;
+    };
   }, [currentPostUrl]);
+
   return (
     <section id="last_news" className={styles.news}>
       <div className={clsx(styles.news_container, 'content-container')}>

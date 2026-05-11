@@ -55,6 +55,34 @@
       flex-shrink: 0;
       width: 24px;
       height: 24px;
+      position: relative;
+
+      &,
+      &::before,
+      &::after {
+        display: block;
+        border-top: 2px solid currentColor;
+      }
+
+      & {
+        transform: translateY(11px);
+      }
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 24px;
+      }
+
+      &::before {
+        top: -8px;
+      }
+
+      &::after {
+        top: 6px;
+      }
     }
   }
 }
