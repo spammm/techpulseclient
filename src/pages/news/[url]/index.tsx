@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import Image from 'next/image';
 import clsx from 'clsx';
-import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -167,9 +167,11 @@ const Post: React.FC<PostProps> = ({ post }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<PostProps, IParams> = async (
-  context: GetStaticPropsContext<IParams>
+export const getServerSideProps: GetServerSideProps<PostProps, IParams> = async (
+  context: GetServerSidePropsContext<IParams>
 ) => {
+  context.res.setHeader('Cache-Control', 'no-store');
+
   if (!context.params || !context.params.url) {
     return {
       notFound: true,
@@ -191,7 +193,6 @@ export const getStaticProps: GetStaticProps<PostProps, IParams> = async (
       props: {
         post,
       },
-      revalidate: 3600,
     };
   } catch (error) {
     console.log('error: ', error);
@@ -199,13 +200,6 @@ export const getStaticProps: GetStaticProps<PostProps, IParams> = async (
       notFound: true,
     };
   }
-};
-
-export const getStaticPaths: GetStaticPaths<IParams> = async () => {
-  return {
-    paths: [],
-    fallback: 'blocking',
-  };
 };
 
 export default Post;

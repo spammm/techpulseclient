@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import cache from 'memory-cache';
 import { getPublishedPosts } from '@/api/postsApi';
 
 interface SitemapEntry {
@@ -100,19 +99,10 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const cachedSitemap = cache.get('sitemap');
-    if (cachedSitemap) {
-      res.setHeader('Content-Type', 'application/xml');
-      return res.status(200).send(cachedSitemap);
-    }
-
-    // Генерируем новый sitemap
     const sitemap = await generateSitemap();
 
-    // Кэшируем результат на сутки
-    cache.put('sitemap', sitemap, 1000 * 60 * 60 * 24);
-
     res.setHeader('Content-Type', 'application/xml');
+    res.setHeader('Cache-Control', 'no-store');
     res.status(200).send(sitemap);
   } catch (error) {
     console.error('Failed to serve sitemap:', error);

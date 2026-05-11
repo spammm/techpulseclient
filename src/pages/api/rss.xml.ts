@@ -40,7 +40,7 @@ export default async function handler(
   const xml = RSS(posts.posts);
 
   res.setHeader('Content-Type', 'text/xml');
-  res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
+  res.setHeader('Cache-Control', 'no-store');
 
   res.status(200).send(xml);
 }
